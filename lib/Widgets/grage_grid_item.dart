@@ -9,8 +9,8 @@ Widget garageGridItem(text, icon) {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.green.withOpacity(0.1),
-            offset: Offset(-6.0, -6.0),
+            color: Colors.white.withOpacity(0.1),
+            offset: Offset(-4.0, -4.0),
             blurRadius: 16.0,
           ),
           BoxShadow(
@@ -28,15 +28,15 @@ Widget garageGridItem(text, icon) {
           Text(
             text,
             style: GoogleFonts.montserrat(
-                color: Colors.green, fontWeight: FontWeight.w500),
+                color: Colors.green, fontWeight: FontWeight.w500, fontSize: 11),
           ),
           SizedBox(
             height: 8,
           ),
           Image(
             image: AssetImage(icon),
-            width: 30,
-            height: 30,
+            width: 28,
+            height: 28,
             color: Colors.green,
           )
         ],

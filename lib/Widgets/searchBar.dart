@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 Widget mySearchBar() {
   return Container(
-    margin: EdgeInsets.only(left: 5, right: 14, top: 30),
+    margin: EdgeInsets.only(left: 5, right: 14, top: 12),
     child: Row(
       children: [
         Expanded(

@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Color(0xFF292D32),
       ),
       body: ListView(
-        physics: ClampingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         children: [mySearchBar(), homeGridView()],
       ),
     );
