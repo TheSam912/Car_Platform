@@ -26,6 +26,7 @@ Widget garageGridItem(text, icon) {
       children: [
         Text(
           text,
+          textAlign: TextAlign.center,
           style: GoogleFonts.montserrat(
               color: Colors.green, fontWeight: FontWeight.w500, fontSize: 11),
         ),

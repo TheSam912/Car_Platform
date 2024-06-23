@@ -18,12 +18,12 @@ class _GaragePageState extends State<GaragePage> {
   String userLocation = "Italy PD";
 
   List<GarageItemModel> garageItems = [
+    GarageItemModel("Tuning", "assets/icons/engine.png"),
+    GarageItemModel("Tire Services", "assets/icons/services.png"),
+    GarageItemModel("Insurance", "assets/icons/insurance.png"),
+    GarageItemModel("Car Wash", "assets/icons/carwash.png"),
     GarageItemModel("Car Detailing", "assets/icons/clean.png"),
-    GarageItemModel("Remap Engine", "assets/icons/engine.png"),
-    GarageItemModel("Car Detailing", "assets/icons/clean.png"),
-    GarageItemModel("Remap Engine", "assets/icons/engine.png"),
-    GarageItemModel("Car Detailing", "assets/icons/clean.png"),
-    GarageItemModel("Remap Engine", "assets/icons/engine.png"),
+    GarageItemModel("Car Sharing", "assets/icons/carkey.png"),
   ];
 
   List<GarageBanner> bannerList = [
