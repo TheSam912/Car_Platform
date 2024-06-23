@@ -1,4 +1,5 @@
 import 'package:car_platform/Constant/colors.dart';
+import 'package:car_platform/Utils/webview.dart';
 import 'package:car_platform/Widgets/grage_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -104,19 +105,36 @@ class _GaragePageState extends State<GaragePage> {
             ),
           ),
           SizedBox(
+            height: 15,
+          ),
+          SizedBox(
             child: ListView.builder(
               itemCount: bannerList.length,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return Container(
-                  height: 200,
-                  margin: EdgeInsets.only(left: 14, right: 14, bottom: 12),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image(
-                      image: AssetImage(bannerList[index].image),
-                      fit: BoxFit.cover,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (_, __, ___) =>
+                            myWebview(bannerList[index].link),
+                        transitionDuration: Duration(milliseconds: 800),
+                        transitionsBuilder: (_, a, __, c) =>
+                            FadeTransition(opacity: a, child: c),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 200,
+                    margin: EdgeInsets.only(left: 14, right: 14, bottom: 12),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image(
+                        image: AssetImage(bannerList[index].image),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 );

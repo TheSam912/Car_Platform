@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:car_platform/Pages/Home_Page.dart';
+import 'package:car_platform/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:typewritertext/typewritertext.dart';
@@ -32,10 +33,14 @@ class _SplashPageState extends State<SplashPage> {
       Duration(milliseconds: 3500),
       () {
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomePage(),
-            ));
+          context,
+          PageRouteBuilder(
+            pageBuilder: (_, __, ___) => MainPage(),
+            transitionDuration: Duration(seconds: 1),
+            transitionsBuilder: (_, a, __, c) =>
+                FadeTransition(opacity: a, child: c),
+          ),
+        );
       },
     );
     super.initState();
@@ -96,7 +101,7 @@ class _SplashPageState extends State<SplashPage> {
                         fontSize: 24),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

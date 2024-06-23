@@ -1,6 +1,6 @@
-import 'package:car_platform/Pages/Garage.dart';
+import 'package:car_platform/Pages/Garage_Page.dart';
 import 'package:car_platform/Pages/Home_Page.dart';
-import 'package:car_platform/Pages/Profile.dart';
+import 'package:car_platform/Pages/Profile_Page.dart';
 import 'package:car_platform/Pages/Splash_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MainPage(),
+      home: SplashPage(),
     );
   }
 }
