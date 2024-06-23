@@ -1,11 +1,11 @@
 import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
-import 'package:car_platform/Pages/Home_Page.dart';
-import 'package:car_platform/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:typewritertext/typewritertext.dart';
+
+import 'Main_Page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

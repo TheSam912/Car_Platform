@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView(
         physics: BouncingScrollPhysics(),
-        children: [mySearchBar(), homeGridView()],
+        children: [mySearchBar(context), homeGridView()],
       ),
     );
   }

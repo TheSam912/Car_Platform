@@ -1,8 +1,9 @@
+import 'package:car_platform/Pages/Filter_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget mySearchBar() {
+Widget mySearchBar(context) {
   return Container(
     margin: EdgeInsets.only(left: 5, right: 14, top: 12),
     child: Row(
@@ -28,15 +29,28 @@ Widget mySearchBar() {
             ),
           ),
         ),
-        Container(
-          width: 55,
-          height: 55,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12), color: Colors.green),
-          child: Center(
-            child: SvgPicture.asset(
-              'assets/icons/filter.svg',
-              color: Colors.white,
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (_, __, ___) => FilterPage(),
+                transitionDuration: Duration(milliseconds: 500),
+                transitionsBuilder: (_, a, __, c) =>
+                    FadeTransition(opacity: a, child: c),
+              ),
+            );
+          },
+          child: Container(
+            width: 55,
+            height: 55,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12), color: Colors.green),
+            child: Center(
+              child: SvgPicture.asset(
+                'assets/icons/filter.svg',
+                color: Colors.white,
+              ),
             ),
           ),
         ),
