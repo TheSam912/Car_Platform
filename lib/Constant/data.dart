@@ -1,3 +1,5 @@
+import '../Models/car_model.dart';
+
 List mileageList = [
   "10",
   "20",
@@ -322,4 +324,26 @@ List<String> countriesList = [
   "Yemen",
   "Zambia",
   "Zimbabwe"
+];
+
+List<CarModel> cars = [
+  CarModel(
+      0,
+      "BMW 225d",
+      "endo per passaggio ad altra macchina La macchina è un full optional praticamente , al listino di optional mancano solo il tettuccio e le telecamere 360 e basta. L auto è stata tagliandata fino a 85000 km in bmw di seguito dopo il mio acquisto è stata tagliandata dal mio meccanico di fiducia e l'ultimo tagliando è stato eseguito il 15 maggio. La macchina monta -assetto kw v1 (1700?) -cerchi replica m2cs (1500?) -impianto frenante 6 pompanti davantiE due pompanti dietro con dischi baffatti e forati dietroE forati davanti brembo con pastiglie ebc blu davanti e ferodo racing dietro e tubi in treccia annessi , con verniciatura estorial blu per le pinze (3200?)La macchina di serie è un 2000 ,4 cilindri biturbo da 224cv ed è stata eseguita una mappa soft che la porta sui 270 cv e 530nm di coppia scaricati tutti nella trazione posteriore , per le gomme son state montate delle hankook s1 evo 3 , le anteriori sono al 60% mentre le posteriori all 80%Non sognatori o perditempo , contattare su whatsappIl prezzo è trattabileDaniele",
+      "Coupe",
+      "New",
+      "BMW",
+      "Italy",
+      "29.000",
+      "2022",
+      "130.000",
+      "Diesel",
+      "Automatic", [
+    "assets/images/bmw/bmw1.jpg",
+    "assets/images/bmw/bmw2.jpg",
+    'assets/images/bmw/bmw3.jpg',
+    'assets/images/bmw/bmw4.jpg',
+    'assets/images/bmw/bmw5.jpg'
+  ])
 ];
