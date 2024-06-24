@@ -42,6 +42,7 @@ dependencies:
   hooks_riverpod:
   flutter_svg:
   webview_flutter:
+  easy_autocomplete:
 
 dev_dependencies:
   flutter_test:

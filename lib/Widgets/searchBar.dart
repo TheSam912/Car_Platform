@@ -1,4 +1,5 @@
 import 'package:car_platform/Pages/Filter_Page.dart';
+import 'package:car_platform/Utils/filter_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,15 +32,11 @@ Widget mySearchBar(context) {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (_, __, ___) => FilterPage(),
-                transitionDuration: Duration(milliseconds: 500),
-                transitionsBuilder: (_, a, __, c) =>
-                    FadeTransition(opacity: a, child: c),
-              ),
-            );
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return FilterDialog();
+                });
           },
           child: Container(
             width: 55,
