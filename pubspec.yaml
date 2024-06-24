@@ -43,6 +43,9 @@ dependencies:
   flutter_svg:
   webview_flutter:
   easy_autocomplete:
+  geolocator:
+  geocoding:
+  google_maps_flutter:
 
 dev_dependencies:
   flutter_test:

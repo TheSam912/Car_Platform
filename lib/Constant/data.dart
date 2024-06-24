@@ -1,10 +1,3 @@
-class CarModel {
-  String title;
-  String image;
-
-  CarModel(this.title, this.image);
-}
-
 List mileageList = [
   "10",
   "20",

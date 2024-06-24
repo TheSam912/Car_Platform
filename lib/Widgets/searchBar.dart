@@ -1,42 +1,69 @@
 import 'package:car_platform/Utils/filter_dialog.dart';
-import 'package:car_platform/Utils/search_dialog.dart';
+import 'package:easy_autocomplete/easy_autocomplete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../Constant/data.dart';
 
 Widget mySearchBar(context) {
   return Container(
     margin: EdgeInsets.only(left: 5, right: 14, top: 12),
     child: Row(
       children: [
-        Expanded(
-          child: GestureDetector(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SearchDialog();
-                  });
-            },
-            child: Container(
-              height: 55,
-              margin: EdgeInsets.all(8),
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.only(left: 16),
-              decoration: BoxDecoration(
-                  color: Colors.grey.shade800,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: const [
-                    BoxShadow(color: Colors.white, blurRadius: 0)
-                  ]),
-              child: Text(
-                "Search Your Dream Car",
-                style: GoogleFonts.montserrat(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
+        Flexible(
+          flex: 9,
+          child: Container(
+            margin: EdgeInsets.only(right: 8, left: 5),
+            child: EasyAutocomplete(
+                suggestions: carCompaniesList,
+                cursorColor: Colors.white,
+
+                suggestionBackgroundColor: Colors.grey.shade800,
+                suggestionTextStyle: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w500, fontSize: 12),
+                inputTextStyle: GoogleFonts.montserrat(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
                     fontSize: 12),
-              ),
-            ),
+                onChanged: (value) {},
+                onSubmitted: (value) {},
+                decoration: InputDecoration(
+                    hintText: "Search Your Dream Car",
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                    hintStyle: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white38,
+                        fontSize: 14),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(
+                            color: Colors.green,
+                            width: 0.5,
+                            style: BorderStyle.solid)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(
+                            color: Colors.white,
+                            width: 0.5,
+                            style: BorderStyle.solid))),
+                suggestionBuilder: (data) {
+                  return Container(
+                      margin: EdgeInsets.all(2),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Text(data,
+                          style: GoogleFonts.montserrat(
+                              color: Colors.green,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14)));
+                }),
           ),
         ),
         GestureDetector(
