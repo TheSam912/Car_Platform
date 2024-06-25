@@ -12,17 +12,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String userLoc = "";
+  String userLocation = "";
 
   @override
   void initState() {
-    userLocation();
+    getUserLocation();
     super.initState();
   }
 
-  Future userLocation() async {
+  Future getUserLocation() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    userLoc = prefs.getString("userLocation") ?? "";
+    setState(() {
+      userLocation = prefs.getString("userLocation") ?? "";
+    });
   }
 
   @override
@@ -36,7 +38,17 @@ class _HomePageState extends State<HomePage> {
           style: GoogleFonts.montserrat(
               color: Colors.green, fontWeight: FontWeight.bold),
         ),
-        actions: [Text(userLoc)],
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.settings,
+                  color: Colors.white,
+                )),
+          )
+        ],
         elevation: 0,
         backgroundColor: Color(0xFF292D32),
       ),

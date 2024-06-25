@@ -52,6 +52,7 @@ Widget homeGridView() {
                           child: Image(
                             image: AssetImage("assets/images/nissan/gtr1.jpg"),
                             fit: BoxFit.cover,
+                            width: double.infinity,
                           ),
                         ),
                       ),
@@ -83,10 +84,16 @@ Widget homeGridView() {
                                 color: Colors.green,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Text(
-                            "2021",
-                            style: GoogleFonts.montserrat(color: Colors.grey),
-                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Colors.green),
+                            child: Icon(
+                              Icons.arrow_forward_rounded,
+                              color: Colors.white,
+                              size: 14,
+                            ),
+                          )
                         ],
                       ),
                     ))

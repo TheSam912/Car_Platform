@@ -1,4 +1,6 @@
 import 'package:car_platform/Constant/colors.dart';
+import 'package:car_platform/Constant/data.dart';
+import 'package:car_platform/Pages/ImageView_Page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,6 +17,7 @@ class _DetailPageState extends State<DetailPage> {
   var _current = 0;
   final CarouselController _controller = CarouselController();
   bool fav = false;
+  List carOptionListLimited = carOptionList.sublist(0, 8);
   var imageSliders = [
     Image(
       image: AssetImage('assets/images/nissan/gtr4.jpg'),
@@ -99,19 +102,28 @@ class _DetailPageState extends State<DetailPage> {
                         bottomLeft: Radius.circular(12),
                         bottomRight: Radius.circular(12),
                         topRight: Radius.circular(100)),
-                    child: CarouselSlider(
-                      items: imageSliders,
-                      carouselController: _controller,
-                      options: CarouselOptions(
-                          autoPlay: false,
-                          enlargeCenterPage: false,
-                          viewportFraction: 1,
-                          height: 400,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              _current = index;
-                            });
-                          }),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return ImageViewPage([]);
+                          },
+                        ));
+                      },
+                      child: CarouselSlider(
+                        items: imageSliders,
+                        carouselController: _controller,
+                        options: CarouselOptions(
+                            autoPlay: false,
+                            enlargeCenterPage: false,
+                            viewportFraction: 1,
+                            height: 400,
+                            onPageChanged: (index, reason) {
+                              setState(() {
+                                _current = index;
+                              });
+                            }),
+                      ),
                     )),
                 Positioned(
                   right: 5,
@@ -129,36 +141,48 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ),
                 ),
+                Positioned(
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(12),
+                            topLeft: Radius.circular(12)),
+                        color: Colors.white.withOpacity(0.9)),
+                    height: 50,
+                    child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: TextButton.icon(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.location_on_outlined,
+                              color: Colors.green,
+                              size: 20,
+                            ),
+                            label: Text(
+                              "Italy",
+                              style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                  color: Colors.green),
+                            ))),
+                  ),
+                ),
               ],
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 14, right: 14, top: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "2010 Nissan gtr r35",
-                  style: GoogleFonts.montserrat(
-                      fontSize: 22,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700),
-                ),
-                TextButton.icon(
-                  onPressed: () {},
-                  label: Text(
-                    "Italy",
-                    style: GoogleFonts.montserrat(
-                        fontSize: 20,
-                        color: Colors.green,
-                        fontWeight: FontWeight.w700),
-                  ),
-                  icon: Icon(
-                    Icons.location_on_outlined,
-                    color: Colors.green,
-                  ),
-                ),
-              ],
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.90,
+              child: Text(
+                "2010 Nissan gtr r35",
+                style: GoogleFonts.montserrat(
+                    fontSize: 22,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700),
+              ),
             ),
           ),
           Container(
@@ -328,6 +352,50 @@ class _DetailPageState extends State<DetailPage> {
                   fontSize: 13,
                   color: Colors.white70,
                   fontWeight: FontWeight.w400),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          SizedBox(
+            child: ListView.builder(
+              itemCount: carOptionListLimited.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.check_box_outlined,
+                            color: Colors.green,
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Text(
+                            "${carOptionListLimited[index]}",
+                            style: GoogleFonts.montserrat(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
+                      child: Divider(
+                        thickness: 0.15,
+                      ),
+                    )
+                  ],
+                );
+              },
             ),
           ),
           SizedBox(

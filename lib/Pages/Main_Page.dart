@@ -32,19 +32,23 @@ class MainPage extends ConsumerWidget {
               ),
               label: ''),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/icons/camera.svg",
+              icon: Image.asset(
+                "assets/icons/customization.png",
                 color: indexBottomNavbar == 1
                     ? Colors.green
                     : Colors.grey.shade700,
+                width: 24,
+                height: 24,
               ),
               label: ''),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/icons/discover.svg",
+              icon: Image.asset(
+                "assets/icons/user.png",
                 color: indexBottomNavbar == 2
                     ? Colors.green
                     : Colors.grey.shade700,
+                width: 24,
+                height: 24,
               ),
               label: ''),
         ],
