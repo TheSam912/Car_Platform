@@ -2,7 +2,10 @@ import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:typewritertext/typewritertext.dart';
 
 import 'Main_Page.dart';
@@ -15,6 +18,8 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  Position? _currentPosition;
+  String userLocation = "";
   String imagePicked = "";
   var splashImageList = [
     "assets/images/splash_1.jpg",
@@ -27,6 +32,7 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
+    checkLocation();
     final random = Random();
     imagePicked = splashImageList[random.nextInt(splashImageList.length)];
     Future.delayed(
@@ -44,6 +50,74 @@ class _SplashPageState extends State<SplashPage> {
       },
     );
     super.initState();
+  }
+
+  Future<bool> _handleLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Location services are disabled. Please enable the services')));
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Location permissions are denied')));
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Location permissions are permanently denied, we cannot request permissions.')));
+      return false;
+    }
+    return true;
+  }
+
+  Future<void> _getCurrentPosition() async {
+    final hasPermission = await _handleLocationPermission();
+    if (!hasPermission) return;
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+      });
+      _getAddressFromLatLng(_currentPosition!);
+    }).catchError((e) {
+      debugPrint(e);
+    });
+  }
+
+  Future<void> _getAddressFromLatLng(Position position) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await placemarkFromCoordinates(
+            _currentPosition!.latitude, _currentPosition!.longitude)
+        .then((List<Placemark> placemarks) {
+      Placemark place = placemarks[0];
+      setState(() {
+        setState(() {
+          userLocation = "${place.country},${place.locality}";
+          prefs.setString("userLocation", userLocation);
+        });
+      });
+    }).catchError((e) {
+      debugPrint(e);
+    });
+  }
+
+  Future checkLocation() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userLoc = prefs.getString("userLocation");
+    if (userLoc == null || userLoc == "") {
+      _getCurrentPosition();
+    }
   }
 
   @override

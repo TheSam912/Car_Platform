@@ -11,7 +11,7 @@ class MainPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final indexBottomNavbar = ref.watch(indexBottomNavbarProvider);
-    final bodies = [const HomePage(), const GaragePage(), const ProfilePage()];
+    final bodies = [HomePage(), const GaragePage(), const ProfilePage()];
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: indexBottomNavbar,

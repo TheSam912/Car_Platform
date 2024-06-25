@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Constant/data.dart';
 
@@ -20,7 +21,6 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
   TextEditingController? maxController = TextEditingController();
   TextEditingController? locationController = TextEditingController();
   TextEditingController? modelController = TextEditingController();
-  Position? _currentPosition;
   String userLocation = "";
   int selectedYear = 2024;
   int selectedMileage = 10;
@@ -34,67 +34,18 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
 
   List carBrandLimitedList = carCompaniesList.sublist(0, 5);
 
-  Future<bool> _handleLocationPermission() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-              'Location services are disabled. Please enable the services')));
-      return false;
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Location permissions are denied')));
-        return false;
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-              'Location permissions are permanently denied, we cannot request permissions.')));
-      return false;
-    }
-    return true;
-  }
-
-  Future<void> _getCurrentPosition() async {
-    final hasPermission = await _handleLocationPermission();
-
-    if (!hasPermission) return;
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) {
-      setState(() => _currentPosition = position);
-      _getAddressFromLatLng(_currentPosition!);
-    }).catchError((e) {
-      debugPrint(e);
-    });
-  }
-
-  Future<void> _getAddressFromLatLng(Position position) async {
-    await placemarkFromCoordinates(
-            _currentPosition!.latitude, _currentPosition!.longitude)
-        .then((List<Placemark> placemarks) {
-      Placemark place = placemarks[0];
-      setState(() {
-        setState(() {
-          userLocation = "${place.country}";
-        });
-      });
-    }).catchError((e) {
-      debugPrint(e);
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    _getCurrentPosition();
+    getUserLocation();
+
+  }
+
+  Future getUserLocation() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userLocation = prefs.getString("userLocation") ?? "";
+    });
   }
 
   @override

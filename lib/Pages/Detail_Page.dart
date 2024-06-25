@@ -17,6 +17,10 @@ class _DetailPageState extends State<DetailPage> {
   bool fav = false;
   var imageSliders = [
     Image(
+      image: AssetImage('assets/images/nissan/gtr4.jpg'),
+      fit: BoxFit.cover,
+    ),
+    Image(
       image: AssetImage('assets/images/nissan/gtr1.jpg'),
       fit: BoxFit.cover,
     ),
@@ -26,10 +30,6 @@ class _DetailPageState extends State<DetailPage> {
     ),
     Image(
       image: AssetImage('assets/images/nissan/gtr3.jpg'),
-      fit: BoxFit.cover,
-    ),
-    Image(
-      image: AssetImage('assets/images/nissan/gtr4.jpg'),
       fit: BoxFit.cover,
     ),
     Image(

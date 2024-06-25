@@ -1,6 +1,7 @@
 import 'package:car_platform/Widgets/home_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Widgets/searchBar.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,6 +12,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String userLoc = "";
+
+  @override
+  void initState() {
+    userLocation();
+    super.initState();
+  }
+
+  Future userLocation() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    userLoc = prefs.getString("userLocation") ?? "";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +36,7 @@ class _HomePageState extends State<HomePage> {
           style: GoogleFonts.montserrat(
               color: Colors.green, fontWeight: FontWeight.bold),
         ),
+        actions: [Text(userLoc)],
         elevation: 0,
         backgroundColor: Color(0xFF292D32),
       ),
