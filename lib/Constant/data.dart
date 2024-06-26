@@ -9,8 +9,8 @@ List mileageList = [
 ];
 
 List fuelTypeList = [
-  "CNG",
   "Diesel",
+  "CNG",
   "Electric",
   "Electric / Diesel",
   "Electric / Gasoline",

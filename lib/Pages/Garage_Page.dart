@@ -84,32 +84,6 @@ class _GaragePageState extends State<GaragePage> {
                             ),
                           ],
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return LocationPage();
-                              },
-                            ));
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Change",
-                                style: GoogleFonts.montserrat(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 12),
-                              ),
-                              Container(
-                                color: Colors.white,
-                                height: 1,
-                                width: 55,
-                              )
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   ),

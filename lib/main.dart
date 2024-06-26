@@ -1,32 +1,32 @@
-import 'package:car_platform/Pages/Garage_Page.dart';
-import 'package:car_platform/Pages/Home_Page.dart';
-import 'package:car_platform/Pages/Profile_Page.dart';
-import 'package:car_platform/Pages/Splash_Page.dart';
+import 'package:car_platform/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 
-import 'Provider/provider.dart';
-
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SplashPage(),
+      // home: SplashPage(),
+      routerConfig: router,
     );
   }
 }

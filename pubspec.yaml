@@ -42,8 +42,11 @@ dependencies:
   hooks_riverpod:
   flutter_svg:
   shared_preferences:
+  dotted_border:
+  intl:
   webview_flutter:
   easy_autocomplete:
+  go_router:
   geolocator:
   geocoding:
   google_maps_flutter:

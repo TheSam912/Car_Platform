@@ -35,20 +35,20 @@ class _SplashPageState extends State<SplashPage> {
     checkLocation();
     final random = Random();
     imagePicked = splashImageList[random.nextInt(splashImageList.length)];
-    Future.delayed(
-      Duration(milliseconds: 3500),
-      () {
-        Navigator.pushReplacement(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (_, __, ___) => MainPage(),
-            transitionDuration: Duration(seconds: 1),
-            transitionsBuilder: (_, a, __, c) =>
-                FadeTransition(opacity: a, child: c),
-          ),
-        );
-      },
-    );
+    // Future.delayed(
+    //   Duration(milliseconds: 3500),
+    //   () {
+    //     Navigator.pushReplacement(
+    //       context,
+    //       PageRouteBuilder(
+    //         pageBuilder: (_, __, ___) => MainPage(),
+    //         transitionDuration: Duration(seconds: 1),
+    //         transitionsBuilder: (_, a, __, c) =>
+    //             FadeTransition(opacity: a, child: c),
+    //       ),
+    //     );
+    //   },
+    // );
     super.initState();
   }
 
