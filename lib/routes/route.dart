@@ -1,6 +1,7 @@
 import 'package:car_platform/Pages/Garage_Page.dart';
 import 'package:car_platform/Pages/Home_Page.dart';
 import 'package:car_platform/Pages/Main_Page.dart';
+import 'package:car_platform/Pages/PostCar_Page.dart';
 import 'package:car_platform/Pages/Profile_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -24,6 +25,22 @@ final GoRouter router = GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: '/home',
     routes: <RouteBase>[
+      GoRoute(
+        path: '/postCar',
+        name: "postCar",
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            name: state.name,
+            child: PostCarPage(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return myTransition(child, animation);
+            },
+          );
+        },
+      ),
       StatefulShellRoute.indexedStack(
           builder: (BuildContext context, GoRouterState state,
               StatefulNavigationShell navigationShell) {

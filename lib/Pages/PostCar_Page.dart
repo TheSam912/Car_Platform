@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Constant/data.dart';
@@ -19,6 +20,8 @@ class PostCarPage extends ConsumerStatefulWidget {
 }
 
 class _PostCarPageState extends ConsumerState<PostCarPage> {
+  TextEditingController nameCarController = TextEditingController();
+  TextEditingController descriptionCarController = TextEditingController();
   TextEditingController selectedBrandController = TextEditingController();
   TextEditingController mileageController = TextEditingController();
   TextEditingController priceController = TextEditingController();
@@ -110,17 +113,34 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: 70,
-          child: Center(
-            child: Text(
-              "Post And Sell Your Car",
-              style: GoogleFonts.montserrat(
-                  color: Colors.green,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              height: 70,
+              margin: EdgeInsets.only(left: 14),
+              child: Center(
+                child: Text(
+                  "Post And Sell Your Car",
+                  style: GoogleFonts.montserrat(
+                      color: Colors.green,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20),
+                ),
+              ),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.only(right: 14),
+              child: IconButton(
+                  onPressed: () {
+                    context.pop();
+                  },
+                  icon: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  )),
+            ),
+          ],
         ),
         Padding(
           padding: const EdgeInsets.only(left: 14, bottom: 20),
@@ -497,6 +517,56 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
               imageOfTheCar("Interior"),
               imageOfTheCar("instrument"),
             ],
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 14, right: 14, top: 20),
+            padding: EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.green, width: 0.5),
+                borderRadius: BorderRadius.circular(12)),
+            child: TextField(
+              controller: nameCarController,
+              maxLines: 2,
+              keyboardType: TextInputType.text,
+              textAlign: TextAlign.start,
+              cursorColor: Colors.green,
+              style: GoogleFonts.montserrat(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14),
+              decoration: InputDecoration(
+                  hintText: "Name of your car ...",
+                  hintStyle: GoogleFonts.montserrat(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14),
+                  border: InputBorder.none),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 14, right: 14, top: 20),
+            padding: EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.green, width: 0.5),
+                borderRadius: BorderRadius.circular(12)),
+            child: TextField(
+              controller: descriptionCarController,
+              maxLines: 5,
+              keyboardType: TextInputType.text,
+              textAlign: TextAlign.start,
+              cursorColor: Colors.green,
+              style: GoogleFonts.montserrat(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14),
+              decoration: InputDecoration(
+                  hintText: "Description of your car ...",
+                  hintStyle: GoogleFonts.montserrat(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14),
+                  border: InputBorder.none),
+            ),
           ),
           sectionCarBrand(),
           titleListTile("Select body type :"),

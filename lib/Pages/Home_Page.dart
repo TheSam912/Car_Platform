@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    showSplash();
+    //showSplash();
     return Scaffold(
         backgroundColor: Color(0xFF292D32),
         appBar: AppBar(
