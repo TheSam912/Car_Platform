@@ -47,6 +47,7 @@ dependencies:
   webview_flutter:
   easy_autocomplete:
   go_router:
+  image_picker:
   geolocator:
   geocoding:
   google_maps_flutter:

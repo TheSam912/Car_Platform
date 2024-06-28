@@ -340,11 +340,16 @@ List<CarModel> cars = [
       "130.000",
       "Diesel",
       "Automatic", [
-    "assets/images/bmw/bmw1.jpg",
-    "assets/images/bmw/bmw2.jpg",
-    'assets/images/bmw/bmw3.jpg',
-    'assets/images/bmw/bmw4.jpg',
-    'assets/images/bmw/bmw5.jpg'
+    CarImageList(
+        0, "bmw", "assets/images/bmw/bmw1.jpg", DateTime.now().toString()),
+    CarImageList(
+        1, "bmw", "assets/images/bmw/bmw2.jpg", DateTime.now().toString()),
+    CarImageList(
+        2, "bmw", "assets/images/bmw/bmw3.jpg", DateTime.now().toString()),
+    CarImageList(
+        3, "bmw", "assets/images/bmw/bmw4.jpg", DateTime.now().toString()),
+    CarImageList(
+        4, "bmw", "assets/images/bmw/bmw5.jpg", DateTime.now().toString()),
   ])
 ];
 
@@ -412,4 +417,19 @@ List<String> carOptionList = [
   "Displacement",
   "Keyless Entry",
   "Smart Access Card Entry",
+];
+
+List<CarImageList> carImageItems = [
+  CarImageList(
+      0, "Front", "", DateTime.now().toString()),
+  CarImageList(
+      1, "Back", "", DateTime.now().toString()),
+  CarImageList(
+      2, "Left Side", "", DateTime.now().toString()),
+  CarImageList(
+      3, "Right Side", "", DateTime.now().toString()),
+  CarImageList(
+      4, "Interior", "", DateTime.now().toString()),
+  CarImageList(
+      5, "instrument", "", DateTime.now().toString()),
 ];

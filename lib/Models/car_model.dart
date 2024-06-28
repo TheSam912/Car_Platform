@@ -11,7 +11,7 @@ class CarModel {
   String mileage;
   String fuelType;
   String transmission;
-  List<String> images;
+  List<CarImageList> images;
 
   CarModel(
       this.id,
@@ -27,4 +27,13 @@ class CarModel {
       this.fuelType,
       this.transmission,
       this.images);
+}
+
+class CarImageList{
+  int id;
+  String type;
+  String image;
+  String dateAndTime;
+
+  CarImageList(this.id, this.type, this.image, this.dateAndTime);
 }

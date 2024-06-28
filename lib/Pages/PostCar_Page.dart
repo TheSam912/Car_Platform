@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:car_platform/Constant/colors.dart';
 import 'package:car_platform/Provider/provider.dart';
+import 'package:car_platform/Utils/date_picker.dart';
 import 'package:car_platform/Utils/price_formatter.dart';
+import 'package:car_platform/Widgets/post_car_widgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:easy_autocomplete/easy_autocomplete.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,8 +14,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../Constant/data.dart';
+import '../Models/car_model.dart';
 
 class PostCarPage extends ConsumerStatefulWidget {
   const PostCarPage({super.key});
@@ -21,6 +27,8 @@ class PostCarPage extends ConsumerStatefulWidget {
 }
 
 class _PostCarPageState extends ConsumerState<PostCarPage> {
+  File? _image;
+  final picker = ImagePicker();
   TextEditingController nameCarController = TextEditingController();
   TextEditingController descriptionCarController = TextEditingController();
   TextEditingController selectedBrandController = TextEditingController();
@@ -36,71 +44,70 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
   List? carBrandLimitedList;
   List? carOptionList = [];
 
-  // List? carOptionList = ["ABS", "EBD"];
+  //Image Picker function to get image from gallery
+  Future getImageFromGallery(index) async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-  openDatePicker(BuildContext context) {
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+        carImageItems[index].image = pickedFile.path.toString();
+      }
+    });
+  }
+
+  //Image Picker function to get image from camera
+  Future getImageFromCamera(index) async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+        carImageItems[index].image = pickedFile.path.toString();
+      }
+    });
+  }
+
+  //Show options to get image from camera or gallery
+  Future showOptions(index) async {
     showCupertinoModalPopup(
-        context: context,
-        builder: (_) => Container(
-              color: Colors.white,
-              height: 250,
-              child: Column(
-                children: [
-                  Container(
-                      height: 168.1,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white.withOpacity(.4),
-                      ),
-                      child: CupertinoDatePicker(
-                        mode: CupertinoDatePickerMode.monthYear,
-                        initialDateTime: DateTime.now(),
-                        maximumDate: DateTime.now(),
-                        onDateTimeChanged: (pickedDate) {
-                          ref
-                              .read(selectedRegistrationDateProvider.notifier)
-                              .update(
-                                (state) => selectedDate = pickedDate
-                                    .toString()
-                                    .split(
-                                      " ",
-                                    )[0]
-                                    .split("-")[0],
-                              );
-                        },
-                      )),
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
-                    child: Material(
-                      type: MaterialType.transparency,
-                      child: MaterialButton(
-                        color: Colors.green,
-                        child: Center(
-                          child: Text(
-                            "Select",
-                            style: GoogleFonts.montserrat(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                        onPressed: () {
-                          // if (_dateC.text == "") {
-                          //   setState(() {
-                          //     String selectedDate =
-                          //     dateConverter(DateTime.now(), context);
-                          //     _dateC.text = selectedDate;
-                          //   });
-                          // }
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ));
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        actions: [
+          CupertinoActionSheetAction(
+            child: Text('Photo Gallery'),
+            onPressed: () {
+              Navigator.of(context).pop();
+              getImageFromGallery(index);
+            },
+          ),
+          CupertinoActionSheetAction(
+            child: Text('Camera'),
+            onPressed: () {
+              Navigator.of(context).pop();
+              getImageFromCamera(index);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget gridImageTile(index, var image, var type) {
+    Uri temp = Uri.parse(carImageItems[index].image);
+    File ff = File.fromUri(temp);
+    return GestureDetector(
+      onTap: () {},
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Image.file(
+          ff,
+          fit: BoxFit.cover,
+          width: 125,
+          height: 125,
+        ),
+      ),
+    );
   }
 
   Widget titleListTile(text) {
@@ -159,30 +166,48 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
     );
   }
 
-  Widget imageOfTheCar(text) {
-    return SizedBox(
-      height: 125,
-      width: 125,
-      child: DottedBorder(
-          radius: Radius.circular(20),
-          borderType: BorderType.RRect,
-          color: Colors.green,
-          child: Center(
-            child: TextButton.icon(
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.green,
-                  size: 20,
-                ),
-                onPressed: () {},
-                label: Text(
-                  text,
-                  style: GoogleFonts.montserrat(
-                      color: Colors.green,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w400),
-                )),
-          )),
+  Widget imageOfTheCar() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 14),
+      child: GridView.builder(
+        itemCount: carImageItems.length,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+        ),
+        itemBuilder: (context, index) {
+          return DottedBorder(
+            radius: Radius.circular(20),
+            borderType: BorderType.RRect,
+            color: Colors.green,
+            child: Center(
+              child: carImageItems[index].image != ""
+                  ? gridImageTile(index, _image, carImageItems[index].type)
+                  : TextButton.icon(
+                      icon: Icon(
+                        Icons.add,
+                        color: Colors.green,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          showOptions(index);
+                        });
+                      },
+                      label: Text(
+                        carImageItems[index].type,
+                        style: GoogleFonts.montserrat(
+                            color: Colors.green,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w400),
+                      )),
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -284,6 +309,197 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
     );
   }
 
+  Widget sectionFuelType() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        titleListTile("Select fuel type"),
+        Container(
+          margin: EdgeInsets.only(left: 8),
+          child: Wrap(
+            direction: Axis.horizontal,
+            children: fuelTypeList.map(
+              (index) {
+                return GestureDetector(
+                  onTap: () {
+                    ref.read(selectedFuelTypeProvider.notifier).update(
+                          (state) => index,
+                        );
+                  },
+                  child: Container(
+                    width: 160,
+                    height: 50,
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: selectedFuelType == "$index"
+                            ? Colors.green
+                            : mainColor,
+                        border: Border.all(color: Colors.white54)),
+                    child: Center(
+                      child: Text(
+                        "$index",
+                        style: GoogleFonts.montserrat(
+                            color: selectedFuelType == "$index"
+                                ? Colors.black
+                                : Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget sectionTransmissionType() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        titleListTile("Transmission :"),
+        Container(
+          margin: EdgeInsets.only(left: 8),
+          child: Wrap(
+            direction: Axis.horizontal,
+            children: transmissionList.map(
+              (index) {
+                return GestureDetector(
+                  onTap: () {
+                    ref.read(selectedTransmissionProvider.notifier).update(
+                          (state) => index,
+                        );
+                  },
+                  child: Container(
+                    width: 170,
+                    height: 55,
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: selectedTransmission == "$index"
+                            ? Colors.green
+                            : mainColor,
+                        border: Border.all(color: Colors.white54)),
+                    child: Center(
+                      child: Text(
+                        "$index",
+                        style: GoogleFonts.montserrat(
+                            color: selectedTransmission == "$index"
+                                ? Colors.black
+                                : Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget sectionMileageRegistration() {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Flexible(
+              flex: 5,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: titleListTile("First registration"),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      openDatePicker(context, ref, selectedDate);
+                    },
+                    child: Container(
+                      height: 60,
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(left: 14, right: 5),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.grey.shade900),
+                      child: Text(
+                        selectedRegistrationDate!,
+                        style: GoogleFonts.montserrat(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Flexible(
+              flex: 5,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: titleListTile("Mileage"),
+                  ),
+                  Container(
+                    height: 60,
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(right: 14, left: 5),
+                    padding: EdgeInsets.symmetric(horizontal: 14),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.grey.shade900),
+                    child: TextField(
+                      controller: mileageController,
+                      keyboardType: TextInputType.numberWithOptions(
+                          signed: true, decimal: true),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
+                      textAlign: TextAlign.center,
+                      onTap: () => mileageController.text = "",
+                      onSubmitted: (value) {
+                        if (mileageController.text != "") {
+                          mileageController.text =
+                              "${mileageController.text}.000 km";
+                        } else {
+                          mileageController.text = "";
+                        }
+                      },
+                      style: GoogleFonts.montserrat(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14),
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: ".000 km",
+                          hintStyle: GoogleFonts.montserrat(
+                              color: Colors.grey.shade600,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14)),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
   Widget sectionCarBrand() {
     carBrandLimitedList = ref.watch(listCarCompanyProvider);
     return Column(
@@ -361,7 +577,7 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
           margin: EdgeInsets.symmetric(horizontal: 12),
           child: Wrap(
             direction: Axis.horizontal,
-            children: carBrandLimitedList!.map(
+            children: carBrandLimitedList!.map<Widget>(
               (index) {
                 return GestureDetector(
                   onTap: () async {
@@ -399,197 +615,6 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
     );
   }
 
-  Widget sectionMileageRegistration() {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Flexible(
-              flex: 5,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: titleListTile("First registration"),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      openDatePicker(context);
-                    },
-                    child: Container(
-                      height: 60,
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(left: 14, right: 5),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.grey.shade900),
-                      child: Text(
-                        selectedRegistrationDate!,
-                        style: GoogleFonts.montserrat(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Flexible(
-              flex: 5,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5.0),
-                    child: titleListTile("Mileage"),
-                  ),
-                  Container(
-                    height: 60,
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(right: 14, left: 5),
-                    padding: EdgeInsets.symmetric(horizontal: 14),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.grey.shade900),
-                    child: TextField(
-                      controller: mileageController,
-                      keyboardType: TextInputType.numberWithOptions(
-                          signed: true, decimal: true),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      textAlign: TextAlign.center,
-                      onTap: () => mileageController.text = "",
-                      onSubmitted: (value) {
-                        if (mileageController.text != "") {
-                          mileageController.text =
-                              "${mileageController.text}.000 km";
-                        } else {
-                          mileageController.text = "";
-                        }
-                      },
-                      style: GoogleFonts.montserrat(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14),
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: ".000 km",
-                          hintStyle: GoogleFonts.montserrat(
-                              color: Colors.grey.shade600,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14)),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget sectionTransmissionType() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        titleListTile("Transmission :"),
-        Container(
-          margin: EdgeInsets.only(left: 8),
-          child: Wrap(
-            direction: Axis.horizontal,
-            children: transmissionList.map(
-              (index) {
-                return GestureDetector(
-                  onTap: () {
-                    ref.read(selectedTransmissionProvider.notifier).update(
-                          (state) => index,
-                        );
-                  },
-                  child: Container(
-                    width: 170,
-                    height: 55,
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: selectedTransmission == "$index"
-                            ? Colors.green
-                            : mainColor,
-                        border: Border.all(color: Colors.white54)),
-                    child: Center(
-                      child: Text(
-                        "$index",
-                        style: GoogleFonts.montserrat(
-                            color: selectedTransmission == "$index"
-                                ? Colors.black
-                                : Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ).toList(),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget sectionFuelType() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        titleListTile("Select fuel type"),
-        Container(
-          margin: EdgeInsets.only(left: 8),
-          child: Wrap(
-            direction: Axis.horizontal,
-            children: fuelTypeList.map(
-              (index) {
-                return GestureDetector(
-                  onTap: () {
-                    ref.read(selectedFuelTypeProvider.notifier).update(
-                          (state) => index,
-                        );
-                  },
-                  child: Container(
-                    width: 160,
-                    height: 50,
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: selectedFuelType == "$index"
-                            ? Colors.green
-                            : mainColor,
-                        border: Border.all(color: Colors.white54)),
-                    child: Center(
-                      child: Text(
-                        "$index",
-                        style: GoogleFonts.montserrat(
-                            color: selectedFuelType == "$index"
-                                ? Colors.black
-                                : Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ).toList(),
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     selectedBodyType = ref.watch(selectedBodyTypeProvider);
@@ -602,25 +627,7 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
       body: ListView(
         children: [
           appBar(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              imageOfTheCar("Front"),
-              imageOfTheCar("Back"),
-              imageOfTheCar("Left side"),
-            ],
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              imageOfTheCar("Right side"),
-              imageOfTheCar("Interior"),
-              imageOfTheCar("instrument"),
-            ],
-          ),
+          imageOfTheCar(),
           Container(
             margin: EdgeInsets.only(left: 14, right: 14, top: 20),
             padding: EdgeInsets.symmetric(horizontal: 14, vertical: 5),

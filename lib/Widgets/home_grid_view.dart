@@ -11,7 +11,7 @@ Widget homeGridView() {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, childAspectRatio: 0.91),
+          crossAxisCount: 2, childAspectRatio: 0.97),
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
