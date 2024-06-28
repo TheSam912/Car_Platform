@@ -6,6 +6,7 @@ import 'package:easy_autocomplete/easy_autocomplete.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,6 +26,7 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
   TextEditingController selectedBrandController = TextEditingController();
   TextEditingController mileageController = TextEditingController();
   TextEditingController priceController = TextEditingController();
+  TextEditingController optionController = TextEditingController();
   String? selectedCarBrand;
   String? selectedBodyType;
   String? selectedTransmission;
@@ -32,6 +34,9 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
   String? selectedRegistrationDate;
   var selectedDate;
   List? carBrandLimitedList;
+  List? carOptionList = [];
+
+  // List? carOptionList = ["ABS", "EBD"];
 
   openDatePicker(BuildContext context) {
     showCupertinoModalPopup(
@@ -178,6 +183,104 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
                       fontWeight: FontWeight.w400),
                 )),
           )),
+    );
+  }
+
+  Widget sectionOptions() {
+    carOptionList = ref.watch(listCarOptionsProvider);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 60,
+          margin: EdgeInsets.only(left: 14, right: 14),
+          padding: EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.green, width: 0.5),
+              borderRadius: BorderRadius.circular(12)),
+          child: TextField(
+            controller: optionController,
+            maxLines: 1,
+            keyboardType: TextInputType.text,
+            textAlign: TextAlign.start,
+            cursorColor: Colors.green,
+            style: GoogleFonts.montserrat(
+                color: Colors.white, fontWeight: FontWeight.w400, fontSize: 14),
+            decoration: InputDecoration(
+                hintText: "Ex:  360 View Camera",
+                hintStyle: GoogleFonts.montserrat(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14),
+                border: InputBorder.none),
+            onSubmitted: (value) {
+              if (optionController.text.isNotEmpty ||
+                  optionController.text != "") {
+                if (carOptionList?.contains(optionController.text) == false) {
+                  ref.read(listCarOptionsProvider.notifier).addListener(
+                    (state) {
+                      state.add(optionController.text);
+                      setState(() {});
+                    },
+                  );
+                  optionController.text = "";
+                }
+              }
+            },
+          ),
+        ),
+        Container(
+            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            child: carOptionList!.isNotEmpty
+                ? ListView.builder(
+                    itemCount: carOptionList?.length,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Container(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.circle,
+                                      color: Colors.white,
+                                      size: 10,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      carOptionList?[index],
+                                      style: GoogleFonts.montserrat(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ],
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      ref
+                                          .read(listCarOptionsProvider.notifier)
+                                          .addListener(
+                                        (state) {
+                                          state.remove(carOptionList?[index]);
+                                          setState(() {});
+                                          print(carOptionList);
+                                        },
+                                      );
+                                    },
+                                    icon: Icon(
+                                      Icons.delete_outline,
+                                      color: Colors.red,
+                                    ))
+                              ]));
+                    },
+                  )
+                : Center()),
+      ],
     );
   }
 
@@ -613,6 +716,8 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
           sectionMileageRegistration(),
           sectionTransmissionType(),
           sectionFuelType(),
+          titleListTile("List the options and features:"),
+          sectionOptions(),
           titleListTile("Indicate the price"),
           Container(
             height: 60,

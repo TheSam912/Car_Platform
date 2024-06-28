@@ -26,3 +26,8 @@ final selectedTransmissionProvider = StateProvider(
 final selectedFuelTypeProvider = StateProvider(
   (ref) => "Diesel",
 );
+final listCarOptionsProvider = StateProvider<List<String>>(
+  (ref) {
+    return [];
+  },
+);
