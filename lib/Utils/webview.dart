@@ -22,21 +22,24 @@ class _myWebviewState extends State<myWebview> {
     super.initState();
     controller = WebViewController()
       ..setNavigationDelegate(NavigationDelegate(onPageStarted: (url) {
-        setState(() {
-          loadingPercentage = 0;
-        });
+        if (mounted) {
+          setState(() {
+            loadingPercentage = 0;
+          });
+        }
       }, onProgress: (progress) {
-        setState(() {
-          loadingPercentage = progress;
-        });
+        if (mounted) {
+          setState(() {
+            loadingPercentage = progress;
+          });
+        }
       }, onPageFinished: (url) {
-        setState(() {
-          loadingPercentage = 100;
-        });
-      },
-
-          // Keeping track of navigation uisng NavigationDelegate
-          onNavigationRequest: (navigation) {
+        if (mounted) {
+          setState(() {
+            loadingPercentage = 100;
+          });
+        }
+      }, onNavigationRequest: (navigation) {
         final host = Uri.parse(navigation.url).host;
         if (host.contains('youtube.com')) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -62,7 +65,7 @@ class _myWebviewState extends State<myWebview> {
         },
       )
       ..loadRequest(
-        Uri.parse('https://flutter.dev'),
+        Uri.parse(widget.url),
       );
   }
 
@@ -74,14 +77,14 @@ class _myWebviewState extends State<myWebview> {
           preferredSize: Size(MediaQuery.of(context).size.width, 40),
           child: Container(
             color: mainColor,
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(top: 50, left: 16),
+            alignment: Alignment.centerRight,
+            padding: EdgeInsets.only(top: 40, right: 16),
             child: IconButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
                 icon: Icon(
-                  Icons.arrow_back_ios,
+                  Icons.close,
                   color: Colors.white,
                 )),
           )),

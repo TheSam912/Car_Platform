@@ -17,12 +17,12 @@ Widget homeGridView() {
       ),
       Container(
         height: 6000,
-        margin: EdgeInsets.only(top: 12,left: 8,right: 8),
+        margin: EdgeInsets.only(top: 12, left: 8, right: 8),
         child: GridView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, childAspectRatio: 0.8),
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
@@ -61,6 +61,7 @@ Widget homeGridView() {
                             image: AssetImage("assets/images/bmw/bmw1.jpg"),
                             fit: BoxFit.cover,
                             width: double.infinity,
+                            height: double.infinity,
                           ),
                         ),
                       ),

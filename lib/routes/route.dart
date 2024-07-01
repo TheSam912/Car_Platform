@@ -7,7 +7,7 @@ import 'package:car_platform/Pages/Profile_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../Pages/New_Car_Page_Detail.dart';
+import '../Pages/New_Car_Page_List.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');

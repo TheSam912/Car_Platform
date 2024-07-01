@@ -1,23 +1,18 @@
 import 'dart:io';
-
 import 'package:car_platform/Constant/colors.dart';
 import 'package:car_platform/Provider/provider.dart';
 import 'package:car_platform/Utils/date_picker.dart';
 import 'package:car_platform/Utils/price_formatter.dart';
-import 'package:car_platform/Widgets/post_car_widgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:easy_autocomplete/easy_autocomplete.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../Constant/data.dart';
-import '../Models/car_model.dart';
 
 class PostCarPage extends ConsumerStatefulWidget {
   const PostCarPage({super.key});

@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
-import 'package:car_platform/Models/new_cars_model.dart';
 import 'package:car_platform/Widgets/home_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -205,7 +204,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         Container(
-          height: 230,
+          height: 210,
           margin: EdgeInsets.only(top: 12, bottom: 8, left: 5),
           child: ListView.builder(
             itemCount: newCars.length + 1,
@@ -214,7 +213,7 @@ class _HomePageState extends State<HomePage> {
             itemBuilder: (context, index) {
               return index != newCars.length
                   ? GestureDetector(
-                      onTap: () => context.goNamed("newCarPage",
+                      onTap: () => context.pushNamed("newCarPage",
                           queryParameters: {'index': index.toString()}),
                       child: Container(
                         width: 220,

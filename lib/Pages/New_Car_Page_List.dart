@@ -55,43 +55,48 @@ class _NewCarPageListState extends State<NewCarPageList> {
             itemCount: newCars.length,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              return Container(
-                height: 200,
-                margin: EdgeInsets.all(8),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.grey.shade900,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        FadeInLeftBig(
-                          child: Text(
-                            "Offers from ${newCars[index].title}",
-                            style: GoogleFonts.montserrat(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16),
+              return GestureDetector(
+                onTap: () {
+                  context.pushNamed('newCarPage');
+                },
+                child: Container(
+                  height: 200,
+                  margin: EdgeInsets.all(8),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.grey.shade900,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          FadeInLeftBig(
+                            child: Text(
+                              "Offers from ${newCars[index].title}",
+                              style: GoogleFonts.montserrat(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16),
+                            ),
                           ),
-                        ),
-                        FadeInRightBig(
-                          child: Image(
-                            image: AssetImage(newCars[index].logoImage),
-                            width: 35,
-                            height: 35,
-                            fit: BoxFit.contain,
-                          ),
-                        )
-                      ],
-                    ),
-                    FadeInLeftBig(
-                        child: Image(image: AssetImage(newCars[index].image)))
-                  ],
+                          FadeInRightBig(
+                            child: Image(
+                              image: AssetImage(newCars[index].logoImage),
+                              width: 35,
+                              height: 35,
+                              fit: BoxFit.contain,
+                            ),
+                          )
+                        ],
+                      ),
+                      FadeInLeftBig(
+                          child: Image(image: AssetImage(newCars[index].image)))
+                    ],
+                  ),
                 ),
               );
             },

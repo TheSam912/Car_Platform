@@ -15,12 +15,11 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  var _current = 0;
+  var current = 0;
   final CarouselController _controller = CarouselController();
   bool fav = false;
   List carOptionListLimited = carOptionList.sublist(0, 8);
   var imageSliders = [
-
     Image(
       image: AssetImage('assets/images/bmw/bmw1.jpg'),
       fit: BoxFit.cover,
@@ -126,7 +125,7 @@ class _DetailPageState extends State<DetailPage> {
                               height: 400,
                               onPageChanged: (index, reason) {
                                 setState(() {
-                                  _current = index;
+                                  current = index;
                                 });
                               }),
                         ),
@@ -365,45 +364,8 @@ class _DetailPageState extends State<DetailPage> {
             height: 20,
           ),
           SizedBox(
-            child: ListView.builder(
-              itemCount: carOptionListLimited.length,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 8),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.check_box_outlined,
-                            color: Colors.green,
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            "${carOptionListLimited[index]}",
-                            style: GoogleFonts.montserrat(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12),
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14),
-                      child: Divider(
-                        thickness: 0.15,
-                      ),
-                    )
-                  ],
-                );
-              },
-            ),
+            height: 200,
+            child: Image.asset("assets/images/map.png"),
           ),
           SizedBox(
             height: 20,
