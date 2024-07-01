@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Constant/data.dart';
+import '../Provider/provider.dart';
 
 class FilterDialog extends ConsumerStatefulWidget {
   const FilterDialog({super.key});
@@ -21,9 +22,10 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
   TextEditingController? maxController = TextEditingController();
   TextEditingController? locationController = TextEditingController();
   TextEditingController? modelController = TextEditingController();
+  TextEditingController selectedBrandController = TextEditingController();
   String userLocation = "";
   int selectedYear = 2024;
-  int selectedMileage = 10;
+  var selectedMileage;
   String selectedFuel = "CNG";
   String selectedTransmission = "Automatic";
   bool autoDisable = false;
@@ -31,6 +33,8 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
   String selectedCarBrand = "Abarth";
   String selectedCountry = "";
   String firstItemCarCompany = "Abarth";
+  String? selectedFuelType;
+  String? selectedRegistrationDate;
 
   List carBrandLimitedList = carCompaniesList.sublist(0, 5);
 
@@ -50,6 +54,12 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
 
   @override
   Widget build(BuildContext context) {
+    selectedBodyType = ref.watch(selectedBodyTypeProvider);
+    selectedCarBrand = ref.watch(selectedCarBrandProvider);
+    selectedRegistrationDate = ref.watch(selectedRegistrationDateProvider);
+    selectedTransmission = ref.watch(selectedTransmissionProvider);
+    selectedFuelType = ref.watch(selectedFuelTypeProvider);
+    selectedMileage = ref.watch(selectedMileageProvider);
     return BottomSheet(
       backgroundColor: mainColor,
       onClosing: () {},
@@ -66,9 +76,9 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                   (index) {
                     return GestureDetector(
                       onTap: () {
-                        setState(() {
-                          selectedBodyType = index;
-                        });
+                        ref.read(selectedBodyTypeProvider.notifier).update(
+                              (state) => index,
+                        );
                       },
                       child: Container(
                         width: 100,
@@ -114,16 +124,22 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                       fontSize: 12),
                   onChanged: (value) {},
                   onSubmitted: (value) {
-                    setState(() {
-                      firstItemCarCompany = value;
-                      if (carBrandLimitedList.contains(value) == false) {
-                        carBrandLimitedList.add(firstItemCarCompany);
-                        selectedCarBrand = firstItemCarCompany;
-                      } else {
-                        selectedCarBrand = value;
-                      }
-                      // print(selectedCarBrand);
-                    });
+                    if (carBrandLimitedList.contains(value) == false) {
+                      ref.read(listCarCompanyProvider.notifier).addListener(
+                            (state) {
+                          state.add(value);
+                          ref.read(selectedCarBrandProvider.notifier).update(
+                                (state) => value,
+                          );
+                        },
+                      );
+                      selectedBrandController.clear();
+                    } else {
+                      ref.read(selectedCarBrandProvider.notifier).update(
+                            (state) => value,
+                      );
+                      selectedBrandController.clear();
+                    }
                   },
                   decoration: InputDecoration(
                       hintText: "Search the model ...",
@@ -168,9 +184,9 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                   (index) {
                     return GestureDetector(
                       onTap: () {
-                        setState(() {
-                          selectedCarBrand = index;
-                        });
+                        ref.read(selectedCarBrandProvider.notifier).update(
+                              (state) => index,
+                        );
                       },
                       child: Container(
                         width: 111,
@@ -266,9 +282,9 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                   (index) {
                     return GestureDetector(
                       onTap: () {
-                        setState(() {
-                          selectedYear = int.parse(index);
-                        });
+                        ref.read(selectedRegistrationDateProvider.notifier).update(
+                              (state) => index,
+                        );
                       },
                       child: Container(
                         width: 65,
@@ -278,7 +294,7 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                             EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: "$selectedYear" == "$index"
+                            color: "$selectedRegistrationDate" == "$index"
                                 ? Colors.green
                                 : mainColor,
                             border: Border.all(color: Colors.white54)),
@@ -286,7 +302,7 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                           child: Text(
                             "$index",
                             style: GoogleFonts.montserrat(
-                                color: "$selectedYear" == "$index"
+                                color: "$selectedRegistrationDate" == "$index"
                                     ? Colors.black
                                     : Colors.white,
                                 fontWeight: FontWeight.w500,
@@ -308,9 +324,9 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                   (index) {
                     return GestureDetector(
                       onTap: () {
-                        setState(() {
-                          selectedMileage = int.parse(index);
-                        });
+                        ref.read(selectedMileageProvider.notifier).update(
+                              (state) => index,
+                        );
                       },
                       child: Container(
                         width: mileageList.last == index ? 140 : 90,
@@ -352,9 +368,9 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                   (index) {
                     return GestureDetector(
                       onTap: () {
-                        setState(() {
-                          selectedFuel = index;
-                        });
+                        ref.read(selectedFuelTypeProvider.notifier).update(
+                              (state) => index,
+                        );
                       },
                       child: Container(
                         width: 160,
@@ -364,7 +380,7 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                             EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: selectedFuel == "$index"
+                            color: selectedFuelType == "$index"
                                 ? Colors.green
                                 : mainColor,
                             border: Border.all(color: Colors.white54)),
@@ -372,7 +388,7 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                           child: Text(
                             "$index",
                             style: GoogleFonts.montserrat(
-                                color: selectedFuel == "$index"
+                                color: selectedFuelType == "$index"
                                     ? Colors.black
                                     : Colors.white,
                                 fontWeight: FontWeight.w500,
@@ -394,9 +410,9 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                   (index) {
                     return GestureDetector(
                       onTap: () {
-                        setState(() {
-                          selectedTransmission = index;
-                        });
+                        ref.read(selectedTransmissionProvider.notifier).update(
+                              (state) => index,
+                        );
                       },
                       child: Container(
                         width: 150,

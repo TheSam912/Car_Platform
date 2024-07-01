@@ -20,6 +20,9 @@ final listCarCompanyProvider = StateProvider<List<String>>(
 final selectedRegistrationDateProvider = StateProvider<String>(
   (ref) => "2024",
 );
+final selectedMileageProvider = StateProvider<String>(
+  (ref) => "10.000",
+);
 final selectedTransmissionProvider = StateProvider(
   (ref) => "Automatic",
 );
