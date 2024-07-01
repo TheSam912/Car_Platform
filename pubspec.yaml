@@ -44,6 +44,7 @@ dependencies:
   shared_preferences:
   dotted_border:
   intl:
+  onboarding:
   webview_flutter:
   easy_autocomplete:
   go_router:
@@ -80,6 +81,7 @@ flutter:
     - assets/images/
     - assets/images/bmw/
     - assets/images/nissan/
+    - assets/images/new/
     - assets/icons/
   #   - images/a_dot_ham.jpeg
 

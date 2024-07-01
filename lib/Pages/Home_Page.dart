@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
+import 'package:car_platform/Models/new_cars_model.dart';
 import 'package:car_platform/Widgets/home_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -9,6 +10,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:typewritertext/typewritertext.dart';
+import '../Constant/data.dart';
 import '../Widgets/searchBar.dart';
 
 class HomePage extends StatefulWidget {
@@ -190,6 +192,117 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget newCarsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 14, top: 20),
+          child: Text(
+            "New Cars offers:",
+            style: GoogleFonts.montserrat(
+                color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18),
+          ),
+        ),
+        Container(
+          height: 230,
+          margin: EdgeInsets.only(top: 12, bottom: 8, left: 5),
+          child: ListView.builder(
+            itemCount: newCars.length + 1,
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return index != newCars.length
+                  ? GestureDetector(
+                      onTap: () => context.goNamed("newCarPage",
+                          queryParameters: {'index': index.toString()}),
+                      child: Container(
+                        width: 220,
+                        margin: EdgeInsets.symmetric(horizontal: 5),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Colors.grey.shade900),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 14, top: 14, right: 14),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    newCars[index].title,
+                                    style: GoogleFonts.montserrat(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 16),
+                                  ),
+                                  Image(
+                                    image: AssetImage(newCars[index].logoImage),
+                                    width: 30,
+                                    height: 30,
+                                    fit: BoxFit.contain,
+                                  )
+                                ],
+                              ),
+                            ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(12)),
+                              child: Image(
+                                image: AssetImage(newCars[index].cropImage),
+                                height: 150,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : Container(
+                      width: 230,
+                      margin: EdgeInsets.symmetric(horizontal: 5),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.grey.shade900),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton.icon(
+                            onPressed: () {
+                              context.push('/NewCarPageList');
+                            },
+                            label: Text(
+                              "Browse all",
+                              style: GoogleFonts.montserrat(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            icon: Icon(
+                              Icons.arrow_forward_outlined,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                            iconAlignment: IconAlignment.end,
+                          ),
+                          Container(
+                            height: 1,
+                            margin: EdgeInsets.symmetric(horizontal: 60),
+                            color: Colors.white,
+                          )
+                        ],
+                      ),
+                    );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     //showSplash();
@@ -218,7 +331,7 @@ class _HomePageState extends State<HomePage> {
         ),
         body: ListView(
           physics: BouncingScrollPhysics(),
-          children: [mySearchBar(context), homeGridView()],
+          children: [mySearchBar(context), newCarsSection(), homeGridView()],
         ));
   }
 }

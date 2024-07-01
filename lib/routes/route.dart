@@ -1,10 +1,13 @@
 import 'package:car_platform/Pages/Garage_Page.dart';
 import 'package:car_platform/Pages/Home_Page.dart';
 import 'package:car_platform/Pages/Main_Page.dart';
+import 'package:car_platform/Pages/New_Car_Page.dart';
 import 'package:car_platform/Pages/PostCar_Page.dart';
 import 'package:car_platform/Pages/Profile_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../Pages/New_Car_Page_Detail.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -34,6 +37,40 @@ final GoRouter router = GoRouter(
             key: state.pageKey,
             name: state.name,
             child: PostCarPage(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return myTransition(child, animation);
+            },
+          );
+        },
+      ),
+      GoRoute(
+        path: '/newCarPageList',
+        name: "newCarPageList",
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            name: state.name,
+            child: NewCarPageList(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return myTransition(child, animation);
+            },
+          );
+        },
+      ),
+      GoRoute(
+        path: '/newCarPage',
+        name: "newCarPage",
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            name: state.name,
+            child: NewCarPage(
+              index: state.uri.queryParameters['index'],
+            ),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               return myTransition(child, animation);

@@ -4,6 +4,7 @@ import 'package:car_platform/Pages/ImageView_Page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DetailPage extends StatefulWidget {
@@ -19,24 +20,25 @@ class _DetailPageState extends State<DetailPage> {
   bool fav = false;
   List carOptionListLimited = carOptionList.sublist(0, 8);
   var imageSliders = [
+
     Image(
-      image: AssetImage('assets/images/nissan/gtr4.jpg'),
+      image: AssetImage('assets/images/bmw/bmw1.jpg'),
       fit: BoxFit.cover,
     ),
     Image(
-      image: AssetImage('assets/images/nissan/gtr1.jpg'),
+      image: AssetImage('assets/images/bmw/bmw2.jpg'),
       fit: BoxFit.cover,
     ),
     Image(
-      image: AssetImage('assets/images/nissan/gtr2.jpg'),
+      image: AssetImage('assets/images/bmw/bmw3.jpg'),
       fit: BoxFit.cover,
     ),
     Image(
-      image: AssetImage('assets/images/nissan/gtr3.jpg'),
+      image: AssetImage('assets/images/bmw/bmw4.jpg'),
       fit: BoxFit.cover,
     ),
     Image(
-      image: AssetImage('assets/images/nissan/gtr5.jpg'),
+      image: AssetImage('assets/images/bmw/bmw5.jpg'),
       fit: BoxFit.cover,
     ),
   ];
@@ -91,85 +93,90 @@ class _DetailPageState extends State<DetailPage> {
               ),
             ),
           ),
-          SizedBox(
-            height: 400,
-            width: double.infinity,
-            child: Stack(
-              children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        bottomLeft: Radius.circular(12),
-                        bottomRight: Radius.circular(12),
-                        topRight: Radius.circular(100)),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) {
-                            return ImageViewPage([]);
-                          },
-                        ));
-                      },
-                      child: CarouselSlider(
-                        items: imageSliders,
-                        carouselController: _controller,
-                        options: CarouselOptions(
-                            autoPlay: false,
-                            enlargeCenterPage: false,
-                            viewportFraction: 1,
-                            height: 400,
-                            onPageChanged: (index, reason) {
-                              setState(() {
-                                _current = index;
-                              });
-                            }),
-                      ),
-                    )),
-                Positioned(
-                  right: 5,
-                  top: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.grey.shade900),
-                    width: 70,
-                    height: 70,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: SvgPicture.asset(
-                        "assets/icons/nissan.svg",
+          Dismissible(
+            direction: DismissDirection.vertical,
+            key: const Key('key'),
+            onDismissed: (_) => context.pop(),
+            child: SizedBox(
+              height: 400,
+              width: double.infinity,
+              child: Stack(
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          bottomLeft: Radius.circular(12),
+                          bottomRight: Radius.circular(12),
+                          topRight: Radius.circular(100)),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return ImageViewPage([]);
+                            },
+                          ));
+                        },
+                        child: CarouselSlider(
+                          items: imageSliders,
+                          carouselController: _controller,
+                          options: CarouselOptions(
+                              autoPlay: false,
+                              enlargeCenterPage: false,
+                              viewportFraction: 1,
+                              height: 400,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _current = index;
+                                });
+                              }),
+                        ),
+                      )),
+                  Positioned(
+                    right: 5,
+                    top: 0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.grey.shade900),
+                      width: 70,
+                      height: 70,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: SvgPicture.asset(
+                          "assets/icons/nissan.svg",
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Positioned(
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(12),
-                            topLeft: Radius.circular(12)),
-                        color: Colors.white.withOpacity(0.9)),
-                    height: 50,
-                    child: Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: TextButton.icon(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.location_on_outlined,
-                              color: Colors.green,
-                              size: 20,
-                            ),
-                            label: Text(
-                              "Italy",
-                              style: GoogleFonts.montserrat(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 14,
-                                  color: Colors.green),
-                            ))),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(12),
+                              topLeft: Radius.circular(12)),
+                          color: Colors.white.withOpacity(0.9)),
+                      height: 50,
+                      child: Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: TextButton.icon(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.location_on_outlined,
+                                color: Colors.green,
+                                size: 20,
+                              ),
+                              label: Text(
+                                "Italy",
+                                style: GoogleFonts.montserrat(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14,
+                                    color: Colors.green),
+                              ))),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Padding(

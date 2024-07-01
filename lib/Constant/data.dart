@@ -1,4 +1,5 @@
 import '../Models/car_model.dart';
+import '../Models/new_cars_model.dart';
 
 List mileageList = [
   "10",
@@ -420,16 +421,27 @@ List<String> carOptionList = [
 ];
 
 List<CarImageList> carImageItems = [
-  CarImageList(
-      0, "Front", "", DateTime.now().toString()),
-  CarImageList(
-      1, "Back", "", DateTime.now().toString()),
-  CarImageList(
-      2, "Left Side", "", DateTime.now().toString()),
-  CarImageList(
-      3, "Right Side", "", DateTime.now().toString()),
-  CarImageList(
-      4, "Interior", "", DateTime.now().toString()),
-  CarImageList(
-      5, "instrument", "", DateTime.now().toString()),
+  CarImageList(0, "Front", "", DateTime.now().toString()),
+  CarImageList(1, "Back", "", DateTime.now().toString()),
+  CarImageList(2, "Left Side", "", DateTime.now().toString()),
+  CarImageList(3, "Right Side", "", DateTime.now().toString()),
+  CarImageList(4, "Interior", "", DateTime.now().toString()),
+  CarImageList(5, "instrument", "", DateTime.now().toString()),
+];
+
+List<NewCarsModel> newCars = [
+  NewCarsModel("assets/images/new/bmw.png", "assets/images/new/bmw_crop.png",
+      "BMW", "assets/images/new/bmw_logo.png"),
+  NewCarsModel(
+      "assets/images/new/mercedes.png",
+      "assets/images/new/mercedes_crop.png",
+      "Mercedes",
+      "assets/images/new/mercedes_logo.png"),
+  NewCarsModel(
+      "assets/images/new/porsche.png",
+      "assets/images/new/porsche_crop.png",
+      "Porsche",
+      "assets/images/new/porsche_logo.png"),
+  NewCarsModel("assets/images/new/audi.png", "assets/images/new/audi_crop.png",
+      "Audi", "assets/images/new/audi_logo.png")
 ];

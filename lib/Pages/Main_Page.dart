@@ -106,8 +106,8 @@ class MainPage extends StatelessWidget {
                 color: navigationShell.currentIndex == 1
                     ? Colors.green
                     : Colors.grey.shade700,
-                width: 24,
-                height: 24,
+                width: 26,
+                height: 26,
               ),
               label: ''),
           BottomNavigationBarItem(
