@@ -4,6 +4,7 @@ import 'package:car_platform/Pages/Main_Page.dart';
 import 'package:car_platform/Pages/New_Car_Page.dart';
 import 'package:car_platform/Pages/PostCar_Page.dart';
 import 'package:car_platform/Pages/Profile_Page.dart';
+import 'package:car_platform/Pages/Settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -71,6 +72,22 @@ final GoRouter router = GoRouter(
             child: NewCarPage(
               index: state.uri.queryParameters['index'],
             ),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return myTransition(child, animation);
+            },
+          );
+        },
+      ),
+      GoRoute(
+        path: '/settings',
+        name: "settings",
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            name: state.name,
+            child: SettingsPage(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               return myTransition(child, animation);

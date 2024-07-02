@@ -19,7 +19,7 @@ Widget homeGridView() {
         height: 6000,
         margin: EdgeInsets.only(top: 12, left: 8, right: 8),
         child: GridView.builder(
-          shrinkWrap: true,
+          shrinkWrap: true,itemCount: 10,
           physics: NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, childAspectRatio: 0.8),

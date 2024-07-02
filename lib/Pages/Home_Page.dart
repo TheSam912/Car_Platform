@@ -318,7 +318,9 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.pushNamed("settings");
+                  },
                   icon: Icon(
                     Icons.settings,
                     color: Colors.white,
