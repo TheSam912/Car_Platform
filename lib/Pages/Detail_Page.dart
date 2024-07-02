@@ -16,9 +16,9 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   var current = 0;
-  final CarouselController _controller = CarouselController();
   bool fav = false;
   List carOptionListLimited = carOptionList.sublist(0, 8);
+  final CarouselController _controller = CarouselController();
   var imageSliders = [
     Image(
       image: AssetImage('assets/images/bmw/bmw1.jpg'),
@@ -111,7 +111,9 @@ class _DetailPageState extends State<DetailPage> {
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(
                             builder: (context) {
-                              return ImageViewPage([]);
+                              return ImageViewPage(
+                                imageList: imageSliders,
+                              );
                             },
                           ));
                         },
