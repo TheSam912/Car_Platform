@@ -18,7 +18,6 @@ class _DetailPageState extends State<DetailPage> {
   var current = 0;
   bool fav = false;
   List carOptionListLimited = carOptionList.sublist(0, 8);
-  final CarouselController _controller = CarouselController();
   var imageSliders = [
     Image(
       image: AssetImage('assets/images/bmw/bmw1.jpg'),
@@ -75,9 +74,7 @@ class _DetailPageState extends State<DetailPage> {
                             });
                           },
                           icon: Icon(
-                            fav == true
-                                ? Icons.favorite
-                                : Icons.favorite_border,
+                            fav == true ? Icons.favorite : Icons.favorite_border,
                             color: Colors.white,
                           )),
                       IconButton(
@@ -119,7 +116,7 @@ class _DetailPageState extends State<DetailPage> {
                         },
                         child: CarouselSlider(
                           items: imageSliders,
-                          carouselController: _controller,
+                          // carouselController: _controller,
                           options: CarouselOptions(
                               autoPlay: false,
                               enlargeCenterPage: false,
@@ -136,8 +133,8 @@ class _DetailPageState extends State<DetailPage> {
                     right: 5,
                     top: 0,
                     child: Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.grey.shade900),
+                      decoration:
+                          BoxDecoration(shape: BoxShape.circle, color: Colors.grey.shade900),
                       width: 70,
                       height: 70,
                       child: Padding(
@@ -154,8 +151,7 @@ class _DetailPageState extends State<DetailPage> {
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(12),
-                              topLeft: Radius.circular(12)),
+                              bottomRight: Radius.circular(12), topLeft: Radius.circular(12)),
                           color: Colors.white.withOpacity(0.9)),
                       height: 50,
                       child: Padding(
@@ -170,9 +166,7 @@ class _DetailPageState extends State<DetailPage> {
                               label: Text(
                                 "Italy",
                                 style: GoogleFonts.montserrat(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14,
-                                    color: Colors.green),
+                                    fontWeight: FontWeight.w700, fontSize: 14, color: Colors.green),
                               ))),
                     ),
                   ),
@@ -187,9 +181,7 @@ class _DetailPageState extends State<DetailPage> {
               child: Text(
                 "2010 Nissan gtr r35",
                 style: GoogleFonts.montserrat(
-                    fontSize: 22,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700),
+                    fontSize: 22, color: Colors.white, fontWeight: FontWeight.w700),
               ),
             ),
           ),
@@ -207,9 +199,7 @@ class _DetailPageState extends State<DetailPage> {
                       label: Text(
                         "Nissan",
                         style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                            fontSize: 12),
+                            fontWeight: FontWeight.w400, color: Colors.white, fontSize: 12),
                       ),
                       icon: SvgPicture.asset(
                         "assets/icons/car.svg",
@@ -230,9 +220,7 @@ class _DetailPageState extends State<DetailPage> {
                       label: Text(
                         "Sport car",
                         style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                            fontSize: 12),
+                            fontWeight: FontWeight.w400, color: Colors.white, fontSize: 12),
                       ),
                       icon: SvgPicture.asset(
                         "assets/icons/car_body.svg",
@@ -260,9 +248,7 @@ class _DetailPageState extends State<DetailPage> {
                       label: Text(
                         "180.000 km",
                         style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                            fontSize: 12),
+                            fontWeight: FontWeight.w400, color: Colors.white, fontSize: 12),
                       ),
                       icon: SvgPicture.asset(
                         "assets/icons/mileage.svg",
@@ -283,9 +269,7 @@ class _DetailPageState extends State<DetailPage> {
                       label: Text(
                         "2009",
                         style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                            fontSize: 12),
+                            fontWeight: FontWeight.w400, color: Colors.white, fontSize: 12),
                       ),
                       icon: SvgPicture.asset(
                         "assets/icons/date.svg",
@@ -313,9 +297,7 @@ class _DetailPageState extends State<DetailPage> {
                       label: Text(
                         "Diesel ",
                         style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                            fontSize: 12),
+                            fontWeight: FontWeight.w400, color: Colors.white, fontSize: 12),
                       ),
                       icon: SvgPicture.asset(
                         "assets/icons/fuel.svg",
@@ -336,9 +318,7 @@ class _DetailPageState extends State<DetailPage> {
                       label: Text(
                         "Manual",
                         style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                            fontSize: 12),
+                            fontWeight: FontWeight.w400, color: Colors.white, fontSize: 12),
                       ),
                       icon: SvgPicture.asset(
                         "assets/icons/transmission.svg",
@@ -357,9 +337,7 @@ class _DetailPageState extends State<DetailPage> {
             child: Text(
               "Nissan GTR R35 Black Edition - 2010 - 3.8 V6 530hp engine - 56 thousand original km - Complete preparation, piston kit, shafts, turbines, engine shaft, monoblock, injectors and much more. - Custom Kline exhaust with materials used for F1s. - Develops 900hp but is prepared to reach 1500hp. - Italian car.PERFECT NO PROBLEM.A MISSILE ON 4 WHEELS",
               style: GoogleFonts.montserrat(
-                  fontSize: 13,
-                  color: Colors.white70,
-                  fontWeight: FontWeight.w400),
+                  fontSize: 13, color: Colors.white70, fontWeight: FontWeight.w400),
             ),
           ),
           SizedBox(
@@ -383,15 +361,12 @@ class _DetailPageState extends State<DetailPage> {
                   child: Container(
                     height: 60,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.green),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.green),
                     child: Text(
                       "€ 95,000",
                       style: GoogleFonts.montserrat(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600),
+                          fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),
@@ -405,9 +380,7 @@ class _DetailPageState extends State<DetailPage> {
                       label: Text(
                         "Contact",
                         style: GoogleFonts.montserrat(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500),
+                            fontSize: 18, color: Colors.white, fontWeight: FontWeight.w500),
                       ),
                       onPressed: () {},
                       icon: Icon(

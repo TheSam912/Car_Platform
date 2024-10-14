@@ -110,8 +110,8 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
       padding: const EdgeInsets.only(left: 14, bottom: 14, top: 22),
       child: Text(
         "$text",
-        style: GoogleFonts.montserrat(
-            fontWeight: FontWeight.w500, color: Colors.white, fontSize: 14),
+        style:
+            GoogleFonts.montserrat(fontWeight: FontWeight.w500, color: Colors.white, fontSize: 14),
       ),
     );
   }
@@ -130,9 +130,7 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
                 child: Text(
                   "Post And Sell Your Car",
                   style: GoogleFonts.montserrat(
-                      color: Colors.green,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20),
+                      color: Colors.green, fontWeight: FontWeight.w600, fontSize: 20),
                 ),
               ),
             ),
@@ -153,8 +151,7 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
           padding: const EdgeInsets.only(left: 14, bottom: 20),
           child: Text(
             "Pictures of your car :",
-            style: GoogleFonts.montserrat(
-                color: Colors.white, fontWeight: FontWeight.w500),
+            style: GoogleFonts.montserrat(color: Colors.white, fontWeight: FontWeight.w500),
           ),
         ),
       ],
@@ -195,9 +192,7 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
                       label: Text(
                         carImageItems[index].type,
                         style: GoogleFonts.montserrat(
-                            color: Colors.green,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w400),
+                            color: Colors.green, fontSize: 11, fontWeight: FontWeight.w400),
                       )),
             ),
           );
@@ -229,13 +224,10 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
             decoration: InputDecoration(
                 hintText: "Ex:  360 View Camera",
                 hintStyle: GoogleFonts.montserrat(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14),
+                    color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 14),
                 border: InputBorder.none),
             onSubmitted: (value) {
-              if (optionController.text.isNotEmpty ||
-                  optionController.text != "") {
+              if (optionController.text.isNotEmpty || optionController.text != "") {
                 if (carOptionList?.contains(optionController.text) == false) {
                   ref.read(listCarOptionsProvider.notifier).addListener(
                     (state) {
@@ -259,44 +251,39 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
                     itemBuilder: (context, index) {
                       return Container(
                           alignment: Alignment.centerLeft,
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                            Row(
                               children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.circle,
-                                      color: Colors.white,
-                                      size: 10,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      carOptionList?[index],
-                                      style: GoogleFonts.montserrat(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ],
+                                Icon(
+                                  Icons.circle,
+                                  color: Colors.white,
+                                  size: 10,
                                 ),
-                                IconButton(
-                                    onPressed: () {
-                                      ref
-                                          .read(listCarOptionsProvider.notifier)
-                                          .addListener(
-                                        (state) {
-                                          state.remove(carOptionList?[index]);
-                                          setState(() {});
-                                          print(carOptionList);
-                                        },
-                                      );
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  carOptionList?[index],
+                                  style: GoogleFonts.montserrat(
+                                      color: Colors.white, fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  ref.read(listCarOptionsProvider.notifier).addListener(
+                                    (state) {
+                                      state.remove(carOptionList?[index]);
+                                      setState(() {});
+                                      print(carOptionList);
                                     },
-                                    icon: Icon(
-                                      Icons.delete_outline,
-                                      color: Colors.red,
-                                    ))
-                              ]));
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.delete_outline,
+                                  color: Colors.red,
+                                ))
+                          ]));
                     },
                   )
                 : Center()),
@@ -328,17 +315,13 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
                     margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: selectedFuelType == "$index"
-                            ? Colors.green
-                            : mainColor,
+                        color: selectedFuelType == "$index" ? Colors.green : mainColor,
                         border: Border.all(color: Colors.white54)),
                     child: Center(
                       child: Text(
                         "$index",
                         style: GoogleFonts.montserrat(
-                            color: selectedFuelType == "$index"
-                                ? Colors.black
-                                : Colors.white,
+                            color: selectedFuelType == "$index" ? Colors.black : Colors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: 14),
                       ),
@@ -377,17 +360,13 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
                     margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: selectedTransmission == "$index"
-                            ? Colors.green
-                            : mainColor,
+                        color: selectedTransmission == "$index" ? Colors.green : mainColor,
                         border: Border.all(color: Colors.white54)),
                     child: Center(
                       child: Text(
                         "$index",
                         style: GoogleFonts.montserrat(
-                            color: selectedTransmission == "$index"
-                                ? Colors.black
-                                : Colors.white,
+                            color: selectedTransmission == "$index" ? Colors.black : Colors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: 14),
                       ),
@@ -425,14 +404,11 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
                       alignment: Alignment.center,
                       margin: EdgeInsets.only(left: 14, right: 5),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.grey.shade900),
+                          borderRadius: BorderRadius.circular(12), color: Colors.grey.shade900),
                       child: Text(
                         selectedRegistrationDate!,
                         style: GoogleFonts.montserrat(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16),
+                            color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
                       ),
                     ),
                   ),
@@ -454,12 +430,10 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
                     margin: EdgeInsets.only(right: 14, left: 5),
                     padding: EdgeInsets.symmetric(horizontal: 14),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.grey.shade900),
+                        borderRadius: BorderRadius.circular(12), color: Colors.grey.shade900),
                     child: TextField(
                       controller: mileageController,
-                      keyboardType: TextInputType.numberWithOptions(
-                          signed: true, decimal: true),
+                      keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                       ],
@@ -467,16 +441,13 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
                       onTap: () => mileageController.text = "",
                       onSubmitted: (value) {
                         if (mileageController.text != "") {
-                          mileageController.text =
-                              "${mileageController.text}.000 km";
+                          mileageController.text = "${mileageController.text}.000 km";
                         } else {
                           mileageController.text = "";
                         }
                       },
                       style: GoogleFonts.montserrat(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14),
+                          color: Colors.white, fontWeight: FontWeight.w400, fontSize: 14),
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: ".000 km",
@@ -507,12 +478,10 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
               suggestions: carCompaniesList,
               cursorColor: Colors.white,
               suggestionBackgroundColor: Colors.grey.shade800,
-              suggestionTextStyle: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w500, fontSize: 12),
+              suggestionTextStyle:
+                  GoogleFonts.montserrat(fontWeight: FontWeight.w500, fontSize: 12),
               inputTextStyle: GoogleFonts.montserrat(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12),
+                  color: Colors.white, fontWeight: FontWeight.w500, fontSize: 12),
               onChanged: (value) {},
               onSubmitted: (value) {
                 if (carBrandLimitedList?.contains(value) == false) {
@@ -539,33 +508,24 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
                     color: Colors.green,
                   ),
                   hintStyle: GoogleFonts.montserrat(
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white38,
-                      fontSize: 14),
+                      fontWeight: FontWeight.w400, color: Colors.white38, fontSize: 14),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                          color: Colors.green,
-                          width: 0.5,
-                          style: BorderStyle.solid)),
+                      borderSide:
+                          BorderSide(color: Colors.green, width: 0.5, style: BorderStyle.solid)),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                          color: Colors.white,
-                          width: 0.5,
-                          style: BorderStyle.none))),
+                      borderSide:
+                          BorderSide(color: Colors.white, width: 0.5, style: BorderStyle.none))),
               suggestionBuilder: (data) {
                 return Container(
                     margin: EdgeInsets.all(2),
                     padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                     decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5)),
+                        color: Colors.transparent, borderRadius: BorderRadius.circular(5)),
                     child: Text(data,
                         style: GoogleFonts.montserrat(
-                            color: Colors.green,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12)));
+                            color: Colors.green, fontWeight: FontWeight.w500, fontSize: 12)));
               }),
         ),
         Container(
@@ -586,17 +546,13 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
                     padding: EdgeInsets.symmetric(vertical: 12),
                     margin: EdgeInsets.all(3),
                     decoration: BoxDecoration(
-                        color: selectedCarBrand == index
-                            ? Colors.green
-                            : mainColor,
+                        color: selectedCarBrand == index ? Colors.green : mainColor,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: Colors.white, width: 0.5)),
                     child: Text(
                       index,
                       style: GoogleFonts.montserrat(
-                          color: selectedCarBrand == index
-                              ? Colors.black
-                              : Colors.white,
+                          color: selectedCarBrand == index ? Colors.black : Colors.white,
                           fontSize: 12,
                           fontWeight: FontWeight.w500),
                     ),
@@ -636,15 +592,11 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
               textAlign: TextAlign.start,
               cursorColor: Colors.green,
               style: GoogleFonts.montserrat(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14),
+                  color: Colors.white, fontWeight: FontWeight.w400, fontSize: 14),
               decoration: InputDecoration(
                   hintText: "Name of your car ...",
                   hintStyle: GoogleFonts.montserrat(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14),
+                      color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 14),
                   border: InputBorder.none),
             ),
           ),
@@ -661,15 +613,11 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
               textAlign: TextAlign.start,
               cursorColor: Colors.green,
               style: GoogleFonts.montserrat(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14),
+                  color: Colors.white, fontWeight: FontWeight.w400, fontSize: 14),
               decoration: InputDecoration(
                   hintText: "Description of your car ...",
                   hintStyle: GoogleFonts.montserrat(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14),
+                      color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 14),
                   border: InputBorder.none),
             ),
           ),
@@ -694,17 +642,13 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
                       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: selectedBodyType == index
-                              ? Colors.green
-                              : mainColor,
+                          color: selectedBodyType == index ? Colors.green : mainColor,
                           border: Border.all(color: Colors.white54)),
                       child: Center(
                         child: Text(
                           "$index",
                           style: GoogleFonts.montserrat(
-                              color: selectedBodyType == index
-                                  ? Colors.black
-                                  : Colors.white,
+                              color: selectedBodyType == index ? Colors.black : Colors.white,
                               fontWeight: FontWeight.w500,
                               fontSize: 12),
                         ),
@@ -726,13 +670,11 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
             alignment: Alignment.center,
             margin: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
             padding: EdgeInsets.symmetric(horizontal: 14),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.grey.shade900),
+            decoration:
+                BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.grey.shade900),
             child: TextField(
               controller: priceController,
-              keyboardType:
-                  TextInputType.numberWithOptions(signed: true, decimal: true),
+              keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
               ],
@@ -746,16 +688,12 @@ class _PostCarPageState extends ConsumerState<PostCarPage> {
                 }
               },
               style: GoogleFonts.montserrat(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14),
+                  color: Colors.white, fontWeight: FontWeight.w400, fontSize: 14),
               decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "Ex. 50.000 €",
                   hintStyle: GoogleFonts.montserrat(
-                      color: Colors.grey.shade600,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14)),
+                      color: Colors.grey.shade600, fontWeight: FontWeight.w400, fontSize: 14)),
             ),
           ),
           SizedBox(

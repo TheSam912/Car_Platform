@@ -21,7 +21,6 @@ class _ProfilePageState extends State<ProfilePage> {
   bool fav = true;
   List<CarModel>? carAdvertiseList;
   bool showOwner = true;
-  final CarouselController _controller = CarouselController();
   var imageSliders = [
     Image(
       image: AssetImage('assets/images/bmw/bmw1.jpg'),
@@ -291,7 +290,7 @@ class _ProfilePageState extends State<ProfilePage> {
               },
               child: CarouselSlider(
                 items: imageSliders,
-                carouselController: _controller,
+                // carouselController: _controller,
                 options: CarouselOptions(
                   autoPlay: true,
                   enlargeCenterPage: true,
