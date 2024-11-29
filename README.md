@@ -1,3 +1,4 @@
+![UCAR Screenshot]([assets/screenshot.png](https://github.com/TheSam912/Car_Platform/blob/main/assets/screenshots/ucar.png))
 # **UCAR**  
 **Your All-in-One Car Marketplace and Service Finder**
 
@@ -33,11 +34,6 @@ UCAR is a beautifully designed mobile application built with Flutter, blending t
 
 ## **Why UCAR?**  
 UCAR combines the convenience of online car trading with the power of location-based advertising, offering a complete ecosystem for car enthusiasts and buyers alike. The app is designed with scalability in mind, making it perfect for future expansion with backend integration.
-
----
-
-## **Screenshots**  
-*(Add some high-quality images or GIFs of your app's key screens. If you’d like, I can help guide you on how to capture and include them!)*
 
 ---
 
