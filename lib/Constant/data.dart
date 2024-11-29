@@ -1,3 +1,5 @@
+import 'package:car_platform/Models/car_model_grid.dart';
+
 import '../Models/car_model.dart';
 import '../Models/new_cars_model.dart';
 
@@ -340,18 +342,14 @@ List<CarModel> cars = [
       "2022",
       "130.000",
       "Diesel",
-      "Automatic", [
-    CarImageList(
-        0, "bmw", "assets/images/bmw/bmw1.jpg", DateTime.now().toString()),
-    CarImageList(
-        1, "bmw", "assets/images/bmw/bmw2.jpg", DateTime.now().toString()),
-    CarImageList(
-        2, "bmw", "assets/images/bmw/bmw3.jpg", DateTime.now().toString()),
-    CarImageList(
-        3, "bmw", "assets/images/bmw/bmw4.jpg", DateTime.now().toString()),
-    CarImageList(
-        4, "bmw", "assets/images/bmw/bmw5.jpg", DateTime.now().toString()),
-  ])
+      "Automatic",
+      [
+        CarImageList(0, "bmw", "assets/images/bmw/bmw1.jpg", DateTime.now().toString()),
+        CarImageList(1, "bmw", "assets/images/bmw/bmw2.jpg", DateTime.now().toString()),
+        CarImageList(2, "bmw", "assets/images/bmw/bmw3.jpg", DateTime.now().toString()),
+        CarImageList(3, "bmw", "assets/images/bmw/bmw4.jpg", DateTime.now().toString()),
+        CarImageList(4, "bmw", "assets/images/bmw/bmw5.jpg", DateTime.now().toString()),
+      ])
 ];
 
 List<String> carOptionList = [
@@ -430,18 +428,21 @@ List<CarImageList> carImageItems = [
 ];
 
 List<NewCarsModel> newCars = [
-  NewCarsModel("assets/images/new/bmw.png", "assets/images/new/bmw_crop.png",
-      "BMW", "assets/images/new/bmw_logo.png"),
-  NewCarsModel(
-      "assets/images/new/mercedes.png",
-      "assets/images/new/mercedes_crop.png",
-      "Mercedes",
+  NewCarsModel("assets/images/new/bmw.png", "assets/images/new/bmw_crop.png", "BMW",
+      "assets/images/new/bmw_logo.png"),
+  NewCarsModel("assets/images/new/mercedes.png", "assets/images/new/mercedes_crop.png", "Mercedes",
       "assets/images/new/mercedes_logo.png"),
-  NewCarsModel(
-      "assets/images/new/porsche.png",
-      "assets/images/new/porsche_crop.png",
-      "Porsche",
+  NewCarsModel("assets/images/new/porsche.png", "assets/images/new/porsche_crop.png", "Porsche",
       "assets/images/new/porsche_logo.png"),
-  NewCarsModel("assets/images/new/audi.png", "assets/images/new/audi_crop.png",
-      "Audi", "assets/images/new/audi_logo.png")
+  NewCarsModel("assets/images/new/audi.png", "assets/images/new/audi_crop.png", "Audi",
+      "assets/images/new/audi_logo.png")
+];
+
+List<CarModelGrid> carsGridHome = [
+  CarModelGrid("Bmw M5", "assets/images/bmw/bmw1.jpg", "55.000"),
+  CarModelGrid("Toyota Yaris", "assets/images/toyota/toyota1.jpg", "25.000"),
+  CarModelGrid("Nissan GTR", "assets/images/nissan/gtr1.jpg", "95.000"),
+  CarModelGrid("Rang Rover", "assets/images/toyota/rang1.jpg", "110.000"),
+  CarModelGrid("MINI cooper d", "assets/images/toyota/mini.jpg", "15.000"),
+  CarModelGrid("Ford pickup ranger", "assets/images/toyota/ford.jpg", "95.000"),
 ];

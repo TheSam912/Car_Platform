@@ -2,11 +2,8 @@ import 'package:car_platform/Constant/colors.dart';
 import 'package:easy_autocomplete/easy_autocomplete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../Constant/data.dart';
 import '../Provider/provider.dart';
 
@@ -42,7 +39,6 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
   void initState() {
     super.initState();
     getUserLocation();
-
   }
 
   Future getUserLocation() async {
@@ -78,27 +74,22 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                       onTap: () {
                         ref.read(selectedBodyTypeProvider.notifier).update(
                               (state) => index,
-                        );
+                            );
                       },
                       child: Container(
                         width: 100,
                         height: 40,
                         padding: EdgeInsets.symmetric(horizontal: 10),
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: selectedBodyType == index
-                                ? Colors.green
-                                : mainColor,
+                            color: selectedBodyType == index ? Colors.green : mainColor,
                             border: Border.all(color: Colors.white54)),
                         child: Center(
                           child: Text(
                             "$index",
                             style: GoogleFonts.montserrat(
-                                color: selectedBodyType == index
-                                    ? Colors.black
-                                    : Colors.white,
+                                color: selectedBodyType == index ? Colors.black : Colors.white,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 12),
                           ),
@@ -116,28 +107,26 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                   suggestions: carCompaniesList,
                   cursorColor: Colors.white,
                   suggestionBackgroundColor: Colors.grey.shade800,
-                  suggestionTextStyle: GoogleFonts.montserrat(
-                      fontWeight: FontWeight.w500, fontSize: 12),
+                  suggestionTextStyle:
+                      GoogleFonts.montserrat(fontWeight: FontWeight.w500, fontSize: 12),
                   inputTextStyle: GoogleFonts.montserrat(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12),
+                      color: Colors.white, fontWeight: FontWeight.w500, fontSize: 12),
                   onChanged: (value) {},
                   onSubmitted: (value) {
                     if (carBrandLimitedList.contains(value) == false) {
                       ref.read(listCarCompanyProvider.notifier).addListener(
-                            (state) {
+                        (state) {
                           state.add(value);
                           ref.read(selectedCarBrandProvider.notifier).update(
                                 (state) => value,
-                          );
+                              );
                         },
                       );
                       selectedBrandController.clear();
                     } else {
                       ref.read(selectedCarBrandProvider.notifier).update(
                             (state) => value,
-                      );
+                          );
                       selectedBrandController.clear();
                     }
                   },
@@ -152,28 +141,20 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(
-                              color: Colors.green,
-                              width: 0.5,
-                              style: BorderStyle.solid)),
+                              color: Colors.green, width: 0.5, style: BorderStyle.solid)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(
-                              color: Colors.white,
-                              width: 0.5,
-                              style: BorderStyle.none))),
+                              color: Colors.white, width: 0.5, style: BorderStyle.none))),
                   suggestionBuilder: (data) {
                     return Container(
                         margin: EdgeInsets.all(2),
-                        padding:
-                            EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                         decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(5)),
+                            color: Colors.transparent, borderRadius: BorderRadius.circular(5)),
                         child: Text(data,
                             style: GoogleFonts.montserrat(
-                                color: Colors.green,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12)));
+                                color: Colors.green, fontWeight: FontWeight.w500, fontSize: 12)));
                   }),
             ),
             Container(
@@ -186,7 +167,7 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                       onTap: () {
                         ref.read(selectedCarBrandProvider.notifier).update(
                               (state) => index,
-                        );
+                            );
                       },
                       child: Container(
                         width: 111,
@@ -194,18 +175,13 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                         padding: EdgeInsets.symmetric(vertical: 12),
                         margin: EdgeInsets.all(3),
                         decoration: BoxDecoration(
-                            color: selectedCarBrand == index
-                                ? Colors.green
-                                : mainColor,
+                            color: selectedCarBrand == index ? Colors.green : mainColor,
                             borderRadius: BorderRadius.circular(12),
-                            border:
-                                Border.all(color: Colors.white, width: 0.5)),
+                            border: Border.all(color: Colors.white, width: 0.5)),
                         child: Text(
                           index,
                           style: GoogleFonts.montserrat(
-                              color: selectedCarBrand == index
-                                  ? Colors.black
-                                  : Colors.white,
+                              color: selectedCarBrand == index ? Colors.black : Colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.w500),
                         ),
@@ -222,12 +198,10 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                   suggestions: countriesList,
                   cursorColor: Colors.white,
                   suggestionBackgroundColor: Colors.grey.shade800,
-                  suggestionTextStyle: GoogleFonts.montserrat(
-                      fontWeight: FontWeight.w500, fontSize: 12),
+                  suggestionTextStyle:
+                      GoogleFonts.montserrat(fontWeight: FontWeight.w500, fontSize: 12),
                   inputTextStyle: GoogleFonts.montserrat(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12),
+                      color: Colors.white, fontWeight: FontWeight.w500, fontSize: 12),
                   onChanged: (value) {},
                   onSubmitted: (value) {
                     setState(() {
@@ -237,9 +211,7 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                   decoration: InputDecoration(
                       hintText: userLocation,
                       hintStyle: GoogleFonts.montserrat(
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
-                          fontSize: 12),
+                          fontWeight: FontWeight.w400, color: Colors.white, fontSize: 12),
                       prefixIcon: Icon(
                         Icons.search,
                         color: Colors.green,
@@ -247,28 +219,20 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(
-                              color: Colors.green,
-                              width: 0.5,
-                              style: BorderStyle.solid)),
+                              color: Colors.green, width: 0.5, style: BorderStyle.solid)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(
-                              color: Colors.white,
-                              width: 0.5,
-                              style: BorderStyle.none))),
+                              color: Colors.white, width: 0.5, style: BorderStyle.none))),
                   suggestionBuilder: (data) {
                     return Container(
                         margin: EdgeInsets.all(2),
-                        padding:
-                            EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                         decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(5)),
+                            color: Colors.transparent, borderRadius: BorderRadius.circular(5)),
                         child: Text(data,
                             style: GoogleFonts.montserrat(
-                                color: Colors.green,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12)));
+                                color: Colors.green, fontWeight: FontWeight.w500, fontSize: 12)));
                   }),
             ),
             titleListTile("Price"),
@@ -284,19 +248,17 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                       onTap: () {
                         ref.read(selectedRegistrationDateProvider.notifier).update(
                               (state) => index,
-                        );
+                            );
                       },
                       child: Container(
                         width: 65,
                         height: 40,
                         padding: EdgeInsets.symmetric(horizontal: 10),
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: "$selectedRegistrationDate" == "$index"
-                                ? Colors.green
-                                : mainColor,
+                            color:
+                                "$selectedRegistrationDate" == "$index" ? Colors.green : mainColor,
                             border: Border.all(color: Colors.white54)),
                         child: Center(
                           child: Text(
@@ -326,29 +288,22 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                       onTap: () {
                         ref.read(selectedMileageProvider.notifier).update(
                               (state) => index,
-                        );
+                            );
                       },
                       child: Container(
                         width: mileageList.last == index ? 140 : 90,
                         height: 40,
                         padding: EdgeInsets.symmetric(horizontal: 10),
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: "$selectedMileage" == "$index"
-                                ? Colors.green
-                                : mainColor,
+                            color: "$selectedMileage" == "$index" ? Colors.green : mainColor,
                             border: Border.all(color: Colors.white54)),
                         child: Center(
                           child: Text(
-                            mileageList.last != index
-                                ? "$index.000"
-                                : "> $index.000",
+                            mileageList.last != index ? "$index.000" : "> $index.000",
                             style: GoogleFonts.montserrat(
-                                color: "$selectedMileage" == "$index"
-                                    ? Colors.black
-                                    : Colors.white,
+                                color: "$selectedMileage" == "$index" ? Colors.black : Colors.white,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 14),
                           ),
@@ -370,27 +325,22 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                       onTap: () {
                         ref.read(selectedFuelTypeProvider.notifier).update(
                               (state) => index,
-                        );
+                            );
                       },
                       child: Container(
                         width: 160,
                         height: 40,
                         padding: EdgeInsets.symmetric(horizontal: 10),
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: selectedFuelType == "$index"
-                                ? Colors.green
-                                : mainColor,
+                            color: selectedFuelType == "$index" ? Colors.green : mainColor,
                             border: Border.all(color: Colors.white54)),
                         child: Center(
                           child: Text(
                             "$index",
                             style: GoogleFonts.montserrat(
-                                color: selectedFuelType == "$index"
-                                    ? Colors.black
-                                    : Colors.white,
+                                color: selectedFuelType == "$index" ? Colors.black : Colors.white,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 14),
                           ),
@@ -412,27 +362,23 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                       onTap: () {
                         ref.read(selectedTransmissionProvider.notifier).update(
                               (state) => index,
-                        );
+                            );
                       },
                       child: Container(
                         width: 150,
                         height: 40,
                         padding: EdgeInsets.symmetric(horizontal: 10),
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: selectedTransmission == "$index"
-                                ? Colors.green
-                                : mainColor,
+                            color: selectedTransmission == "$index" ? Colors.green : mainColor,
                             border: Border.all(color: Colors.white54)),
                         child: Center(
                           child: Text(
                             "$index",
                             style: GoogleFonts.montserrat(
-                                color: selectedTransmission == "$index"
-                                    ? Colors.black
-                                    : Colors.white,
+                                color:
+                                    selectedTransmission == "$index" ? Colors.black : Colors.white,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 14),
                           ),
@@ -455,9 +401,8 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                     height: 50,
                     width: double.infinity,
                     margin: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.red),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.red),
                     child: TextButton.icon(
                       onPressed: () {},
                       icon: Icon(
@@ -467,9 +412,7 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                       label: Text(
                         "Clear",
                         style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                            fontSize: 14),
+                            fontWeight: FontWeight.w500, color: Colors.white, fontSize: 14),
                       ),
                     ),
                   ),
@@ -480,9 +423,8 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                     width: double.infinity,
                     height: 50,
                     margin: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.green),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.green),
                     child: TextButton.icon(
                       onPressed: () {
                         Navigator.pop(context);
@@ -494,9 +436,7 @@ class _FilterDialogState extends ConsumerState<FilterDialog> {
                       label: Text(
                         "Apply",
                         style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                            fontSize: 14),
+                            fontWeight: FontWeight.w500, color: Colors.white, fontSize: 14),
                       ),
                     ),
                   ),
@@ -531,8 +471,8 @@ Widget appbar(context) {
       Text(
         "Filter Your Search",
         textAlign: TextAlign.center,
-        style: GoogleFonts.montserrat(
-            fontSize: 18, color: Colors.green, fontWeight: FontWeight.w500),
+        style:
+            GoogleFonts.montserrat(fontSize: 18, color: Colors.green, fontWeight: FontWeight.w500),
       ),
       Padding(
         padding: EdgeInsets.only(left: 14, right: 14, bottom: 8),
@@ -550,8 +490,7 @@ Widget titleListTile(text) {
     padding: const EdgeInsets.only(left: 14, bottom: 14, top: 12),
     child: Text(
       "$text",
-      style: GoogleFonts.montserrat(
-          fontWeight: FontWeight.w500, color: Colors.white, fontSize: 14),
+      style: GoogleFonts.montserrat(fontWeight: FontWeight.w500, color: Colors.white, fontSize: 14),
     ),
   );
 }
@@ -574,8 +513,7 @@ Widget priceTile(minController, maxController) {
           child: TextField(
             controller: minController,
             decoration: InputDecoration(
-              hintStyle: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w400, color: Colors.white38),
+              hintStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w400, color: Colors.white38),
               border: InputBorder.none,
               hintText: "Min",
             ),
@@ -594,8 +532,7 @@ Widget priceTile(minController, maxController) {
           child: TextField(
             controller: maxController,
             decoration: InputDecoration(
-              hintStyle: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w400, color: Colors.white38),
+              hintStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w400, color: Colors.white38),
               border: InputBorder.none,
               hintText: "Max",
             ),

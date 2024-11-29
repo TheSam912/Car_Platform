@@ -1,4 +1,5 @@
 import 'package:car_platform/Constant/colors.dart';
+import 'package:car_platform/Constant/data.dart';
 import 'package:car_platform/Pages/Detail_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,14 +17,16 @@ Widget homeGridView() {
         ),
       ),
       Container(
-        height: 6000,
+
         margin: EdgeInsets.only(top: 12, left: 8, right: 8),
         child: GridView.builder(
-          shrinkWrap: true,itemCount: 10,
+          shrinkWrap: true,
+          itemCount: carsGridHome.length,
           physics: NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, childAspectRatio: 0.8),
+          gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.8),
           itemBuilder: (context, index) {
+            var item = carsGridHome[index];
             return GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -31,8 +34,7 @@ Widget homeGridView() {
                   PageRouteBuilder(
                     pageBuilder: (_, __, ___) => DetailPage(),
                     transitionDuration: Duration(milliseconds: 300),
-                    transitionsBuilder: (_, a, __, c) =>
-                        FadeTransition(opacity: a, child: c),
+                    transitionsBuilder: (_, a, __, c) => FadeTransition(opacity: a, child: c),
                   ),
                 );
               },
@@ -58,7 +60,7 @@ Widget homeGridView() {
                         ),
                         child: Center(
                           child: Image(
-                            image: AssetImage("assets/images/bmw/bmw1.jpg"),
+                            image: AssetImage(item.image),
                             fit: BoxFit.cover,
                             width: double.infinity,
                             height: double.infinity,
@@ -69,34 +71,29 @@ Widget homeGridView() {
                     Flexible(
                         flex: 2,
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 8.0, left: 8, right: 8),
+                          padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
                           child: Text(
-                            "2010 Nissan gtr r35",
+                            item.name,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: GoogleFonts.montserrat(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
+                                color: Colors.white, fontWeight: FontWeight.w500),
                           ),
                         )),
                     Flexible(
                         child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 0.0, left: 10, right: 10),
+                      padding: const EdgeInsets.only(top: 0.0, left: 10, right: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "€ 95,000",
+                            item.price,
                             style: GoogleFonts.montserrat(
-                                color: Colors.green,
-                                fontWeight: FontWeight.bold),
+                                color: Colors.green, fontWeight: FontWeight.bold),
                           ),
                           Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Colors.green),
+                                borderRadius: BorderRadius.circular(5), color: Colors.green),
                             child: Icon(
                               Icons.arrow_forward_rounded,
                               color: Colors.white,
