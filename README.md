@@ -1,4 +1,7 @@
-![UCAR Screenshot]([assets/screenshot.png](https://github.com/TheSam912/Car_Platform/blob/main/assets/screenshots/ucar.png))
+## Screenshot
+
+![UCAR Screenshot](https://github.com/TheSam912/Car_Platform/blob/main/assets/screenshots/ucar.png?raw=true)
+
 # **UCAR**  
 **Your All-in-One Car Marketplace and Service Finder**
 
